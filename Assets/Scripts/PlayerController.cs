@@ -9,10 +9,10 @@ public class PlayerMovement : MonoBehaviour
     private byte[] buffer = new byte[1024];
 
     private Vector2 movementInput;
-    public float moveSpeed = 10f;
-    public float dashSpeed = 20f;
+    public float moveSpeed = 5f;
+    public float dashSpeed = 8f;
     public float dashDuration = 0.2f;
-    public float dashCooldown = 1f;
+    public float dashCooldown = 5f;
 
     private bool isDashing = false;
     private float dashTimeLeft = 0f;
@@ -20,6 +20,9 @@ public class PlayerMovement : MonoBehaviour
 
     public Camera mainCamera;
     public Vector3 cameraOffset = new Vector3(0, 0, -10);
+    public Animator animator;
+
+    private Vector2 previousMovement = Vector2.zero;
 
     void Start()
     {
@@ -33,6 +36,8 @@ public class PlayerMovement : MonoBehaviour
             {
                 mainCamera = Camera.main;
             }
+
+            animator = GetComponent<Animator>();
         }
         catch (SocketException e)
         {
@@ -75,11 +80,27 @@ public class PlayerMovement : MonoBehaviour
     void MovePlayer(Vector2 movement)
     {
         float currentSpeed = isDashing ? dashSpeed : moveSpeed;
+        movement.x = (float)Math.Round(movement.x, 2);
+        movement.y = (float)Math.Round(movement.y, 2);
+
         Vector3 movementVector = new Vector3(movement.x, movement.y, 0f) * currentSpeed * Time.fixedDeltaTime;
         transform.position += movementVector;
 
         Debug.Log("Player is moving to position: " + transform.position);
         SendData(transform.position.ToString());
+
+        if (animator != null)
+        {
+            UpdateAnimatorParameters(movement, previousMovement);
+        }
+
+        previousMovement = movement;
+    }
+
+    void UpdateAnimatorParameters(Vector2 movement, Vector2 previousMovement)
+    {
+        animator.SetFloat("MoveX", movement.x);
+        animator.SetFloat("MoveY", movement.y);
     }
 
     void UpdateCameraPosition()
@@ -95,7 +116,6 @@ public class PlayerMovement : MonoBehaviour
         isDashing = true;
         dashTimeLeft = dashDuration;
         dashCooldownTimeLeft = dashCooldown;
-        Debug.Log("Dash started");
     }
 
     void EndDash()
