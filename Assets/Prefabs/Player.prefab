@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8005840514781608459}
   - component: {fileID: 1803017460098482366}
   - component: {fileID: 7910839119574465492}
+  - component: {fileID: 2136192976700920181}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -99,12 +100,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a951efe2ea24fc7aa62fdd05d22262, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
-  dashSpeed: 20
+  moveSpeed: 4
+  dashSpeed: 10
   dashDuration: 0.2
   dashCooldown: 1
   mainCamera: {fileID: 0}
   cameraOffset: {x: 0, y: 0, z: -10}
+  animator: {fileID: 2136192976700920181}
 --- !u!50 &1803017460098482366
 Rigidbody2D:
   serializedVersion: 4
@@ -177,3 +179,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.06923559, y: 0.03836733}
   m_EdgeRadius: 0
+--- !u!95 &2136192976700920181
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1463738777561398421}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 155208947831a4efabc0323973c18e09, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
