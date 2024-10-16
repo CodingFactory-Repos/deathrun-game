@@ -27,15 +27,8 @@ public class PlayerMovement : MonoBehaviour
     {
         try
         {
-            var uri = new Uri("http://localhost:11100");
-            clientSocket = new SocketIOUnity(uri, new SocketIOOptions
-            {
-                Query = new Dictionary<string, string>
-                {
-                    { "token", "UNITY" }
-                },
-                Transport = SocketIOClient.Transport.TransportProtocol.WebSocket
-            });
+            var uri = new Uri("http://localhost:3000");
+            clientSocket = new SocketIOUnity(uri);
 
             await clientSocket.ConnectAsync();
 
@@ -93,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
         transform.position += movementVector;
 
         Debug.Log("Player is moving to position: " + transform.position);
-        SendData("playerMovement", transform.position.ToString());
+        SendData("players:move", transform.position.ToString());
 
         if (animator != null)
         {
@@ -134,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
     {
         try
         {
-            await clientSocket.EmitAsync("playerMovement", data);
+            await clientSocket.EmitAsync(channel, data);
             Debug.Log("Data sent: " + $"{channel}|{data}");
         }
         catch (Exception e)
