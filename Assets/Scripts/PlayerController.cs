@@ -1,13 +1,12 @@
 using System;
-using System.Net.Sockets;
+using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using SocketIOClient;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Socket clientSocket;
-    private byte[] buffer = new byte[1024];
-
+    private SocketIOUnity clientSocket;
     private Vector2 movementInput;
     public float moveSpeed = 5f;
     public float dashSpeed = 8f;
@@ -24,22 +23,25 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 previousMovement = Vector2.zero;
 
-    void Start()
+    async void Start()
     {
         try
         {
-            clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            clientSocket.Connect("127.0.0.1", 12345);
-            Debug.Log("Connected to server");
-
-            if (mainCamera == null)
+            var uri = new Uri("http://localhost:11100");
+            clientSocket = new SocketIOUnity(uri, new SocketIOOptions
             {
-                mainCamera = Camera.main;
-            }
+                Query = new Dictionary<string, string>
+                {
+                    { "token", "UNITY" }
+                },
+                Transport = SocketIOClient.Transport.TransportProtocol.WebSocket
+            });
+
+            await clientSocket.ConnectAsync();
 
             animator = GetComponent<Animator>();
         }
-        catch (SocketException e)
+        catch (Exception e)
         {
             Debug.Log("Socket connection error: " + e.Message);
         }
@@ -73,8 +75,12 @@ public class PlayerMovement : MonoBehaviour
         if (movementInput != Vector2.zero)
         {
             MovePlayer(movementInput);
-            UpdateCameraPosition();
         }
+    }
+
+    private void LateUpdate()
+    {
+        UpdateCameraPosition();  // Move to LateUpdate for better camera syncing
     }
 
     void MovePlayer(Vector2 movement)
@@ -87,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
         transform.position += movementVector;
 
         Debug.Log("Player is moving to position: " + transform.position);
-        SendData(transform.position.ToString());
+        SendData("playerMovement", transform.position.ToString());
 
         if (animator != null)
         {
@@ -124,15 +130,14 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Dash ended");
     }
 
-    void SendData(string data)
+    async void SendData(string channel, string data)
     {
         try
         {
-            byte[] dataBytes = Encoding.UTF8.GetBytes(data);
-            clientSocket.Send(dataBytes);
-            Debug.Log("Data sent: " + data);
+            await clientSocket.EmitAsync("playerMovement", data);
+            Debug.Log("Data sent: " + $"{channel}|{data}");
         }
-        catch (SocketException e)
+        catch (Exception e)
         {
             Debug.Log("Socket send error: " + e.Message);
         }
@@ -140,11 +145,9 @@ public class PlayerMovement : MonoBehaviour
 
     void OnApplicationQuit()
     {
-        if (clientSocket != null && clientSocket.Connected)
+        if (clientSocket != null)
         {
-            clientSocket.Shutdown(SocketShutdown.Both);
-            clientSocket.Close();
-            Debug.Log("Disconnected from server");
+            clientSocket.Dispose();  // Properly close the connection
         }
     }
 }
