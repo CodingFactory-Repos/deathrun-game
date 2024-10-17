@@ -50,13 +50,13 @@ public class TrapManager : MonoBehaviour
         }
         else
         {
-            UnityEngine.Debug.LogWarning($"Position ({x}, {y}) est déjà occupée ou hors de la grille.");
+            UnityEngine.Debug.LogWarning($"Position ({x}, {y}) est dï¿½jï¿½ occupï¿½e ou hors de la grille.");
         }
     }
 
     public void ReceivePlacementOrder(int x, int y, string trapType)
     {
-        // Méthode pour recevoir des commandes WebSocket et placer les pièges
+        // Mï¿½thode pour recevoir des commandes WebSocket et placer les piï¿½ges
         SpawnTrapAtPosition(x, y, trapType);
     }
 }
