@@ -85,7 +85,6 @@ public class PlayerMovement : MonoBehaviour
         Vector3 movementVector = new Vector3(movement.x, movement.y, 0f) * currentSpeed * Time.fixedDeltaTime;
         transform.position += movementVector;
 
-        Debug.Log("Player is moving to position: " + transform.position);
         SendData("players:move", transform.position.ToString());
 
         if (animator != null)
