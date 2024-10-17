@@ -1041,6 +1041,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7186636080161143622, guid: 2359570f2fea24215ae3f989d41b590e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7186636080161143622, guid: 2359570f2fea24215ae3f989d41b590e, type: 3}
       propertyPath: m_SortingLayerID
       value: -1791178601
       objectReference: {fileID: 0}
@@ -2984,6 +2988,63 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5978902062025093567, guid: fc0db64e6e1fd4a4b89718f12ab347f7, type: 3}
   m_PrefabInstance: {fileID: 8803801296905376457}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2994638824516458989
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6885118029593512627, guid: 7c74a234ff40ec9449b23765de7189b9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 6885118029593512627, guid: 7c74a234ff40ec9449b23765de7189b9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 6885118029593512627, guid: 7c74a234ff40ec9449b23765de7189b9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 6885118029593512627, guid: 7c74a234ff40ec9449b23765de7189b9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9659258
+      objectReference: {fileID: 0}
+    - target: {fileID: 6885118029593512627, guid: 7c74a234ff40ec9449b23765de7189b9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.2588191
+      objectReference: {fileID: 0}
+    - target: {fileID: 6885118029593512627, guid: 7c74a234ff40ec9449b23765de7189b9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6885118029593512627, guid: 7c74a234ff40ec9449b23765de7189b9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6885118029593512627, guid: 7c74a234ff40ec9449b23765de7189b9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6885118029593512627, guid: 7c74a234ff40ec9449b23765de7189b9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6885118029593512627, guid: 7c74a234ff40ec9449b23765de7189b9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8481200938870355337, guid: 7c74a234ff40ec9449b23765de7189b9, type: 3}
+      propertyPath: m_Name
+      value: PC Computer - The Binding of Isaac Rebirth - Doors_0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7c74a234ff40ec9449b23765de7189b9, type: 3}
 --- !u!1001 &8803801296905376457
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2995,6 +3056,22 @@ PrefabInstance:
     - target: {fileID: 340918141599231381, guid: fc0db64e6e1fd4a4b89718f12ab347f7, type: 3}
       propertyPath: m_Name
       value: LifeCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3816679404089340725, guid: fc0db64e6e1fd4a4b89718f12ab347f7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3816679404089340725, guid: fc0db64e6e1fd4a4b89718f12ab347f7, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3816679404089340725, guid: fc0db64e6e1fd4a4b89718f12ab347f7, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -365
+      objectReference: {fileID: 0}
+    - target: {fileID: 3816679404089340725, guid: fc0db64e6e1fd4a4b89718f12ab347f7, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 470
       objectReference: {fileID: 0}
     - target: {fileID: 5092284430274364147, guid: fc0db64e6e1fd4a4b89718f12ab347f7, type: 3}
       propertyPath: m_Pivot.x
@@ -3026,7 +3103,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5092284430274364147, guid: fc0db64e6e1fd4a4b89718f12ab347f7, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 994.3149
+      value: 988.4692
       objectReference: {fileID: 0}
     - target: {fileID: 5092284430274364147, guid: fc0db64e6e1fd4a4b89718f12ab347f7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3058,11 +3135,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5092284430274364147, guid: fc0db64e6e1fd4a4b89718f12ab347f7, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 4.4745
+      value: 4.49
       objectReference: {fileID: 0}
     - target: {fileID: 5092284430274364147, guid: fc0db64e6e1fd4a4b89718f12ab347f7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 4.4733
+      value: 3.8
       objectReference: {fileID: 0}
     - target: {fileID: 5092284430274364147, guid: fc0db64e6e1fd4a4b89718f12ab347f7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3095,3 +3172,4 @@ SceneRoots:
   - {fileID: 166584760}
   - {fileID: 98536832}
   - {fileID: 8803801296905376457}
+  - {fileID: 2994638824516458989}
