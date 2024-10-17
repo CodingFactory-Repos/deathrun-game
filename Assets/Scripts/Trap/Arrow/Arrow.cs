@@ -6,8 +6,8 @@ using UnityEngine;
 public class Arrow : MonoBehaviour
 {
     public float speed = 0.3f;  
-    public Vector3 direction = Vector3.right;  // Direction de déplacement de la flèche
-    public float lifeTime = 5f;  // Durée de vie de la flèche (si elle ne rencontre aucun obstacle)
+    public Vector3 direction = Vector3.right;  // Direction de dï¿½placement de la flï¿½che
+    public float lifeTime = 5f;  // Durï¿½e de vie de la flï¿½che (si elle ne rencontre aucun obstacle)
 
     void Start()
     {
@@ -20,10 +20,10 @@ public class Arrow : MonoBehaviour
         transform.Translate(direction * speed * Time.deltaTime);
     }
 
-    //TODO Fixe le système pour les mur
+    //TODO Fixe le systï¿½me pour les mur
     void OnCollisionEnter2D(Collision2D collision)
     {
-        UnityEngine.Debug.Log("Collision détectée avec : " + collision.gameObject.name);
+      
         if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Player"))
         {
             Destroy(gameObject);
