@@ -1033,10 +1033,10 @@ GameObject:
   - component: {fileID: 8436259702988649751}
   m_Layer: 0
   m_Name: SpawnPoint
-  m_TagString: Untagged
+  m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &8436259702988649751
 Transform:
@@ -1047,11 +1047,11 @@ Transform:
   m_GameObject: {fileID: 979532337193533816}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4, y: 3.5000002, z: -0.41750005}
+  m_LocalPosition: {x: 0.5, y: -2.5000002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4740884614277713913}
+  m_Father: {fileID: 3176463435939833076}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2848433276931004705
 GameObject:
@@ -1088,7 +1088,6 @@ Transform:
   - {fileID: 5757914258905656863}
   - {fileID: 3855984087839777388}
   - {fileID: 3690813019415027265}
-  - {fileID: 8436259702988649751}
   m_Father: {fileID: 3176463435939833076}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!156049354 &2407730379932051931
@@ -2276,6 +2275,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4740884614277713913}
+  - {fileID: 8436259702988649751}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8327367539400217474
@@ -2636,13 +2636,21 @@ PrefabInstance:
     m_TransformParent: {fileID: 4740884614277713913}
     m_Modifications:
     - target: {fileID: 3423160260848129340, guid: 7c74a234ff40ec9449b23765de7189b9, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 6754384466861484289, guid: 2359570f2fea24215ae3f989d41b590e, type: 3}
+    - target: {fileID: 3423160260848129340, guid: 7c74a234ff40ec9449b23765de7189b9, type: 3}
+      propertyPath: currentRoom
+      value: 
+      objectReference: {fileID: 6459706332820108789}
+    - target: {fileID: 3423160260848129340, guid: 7c74a234ff40ec9449b23765de7189b9, type: 3}
       propertyPath: coridorPrefab
       value: 
       objectReference: {fileID: 7952199346456436073, guid: f1d6d1017155a6e48abf50c31198add1, type: 3}
     - target: {fileID: 3423160260848129340, guid: 7c74a234ff40ec9449b23765de7189b9, type: 3}
       propertyPath: newRoomPrefab
       value: 
-      objectReference: {fileID: 7952199346456436073, guid: f1d6d1017155a6e48abf50c31198add1, type: 3}
+      objectReference: {fileID: 6369746937129949933, guid: 372ef81a87ef0ea46a8aac393f9e5aa1, type: 3}
     - target: {fileID: 3423160260848129340, guid: 7c74a234ff40ec9449b23765de7189b9, type: 3}
       propertyPath: teleportDestination
       value: 
