@@ -27,7 +27,6 @@ public class RoomManager : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            
             currentRoom = GameObject.FindGameObjectWithTag("Map");
             DeleteCurrentRoom();
             GameObject newRoom = Instantiate(newRoomPrefab, new Vector3(4.1f,2.8f,0.0f), Quaternion.identity);
