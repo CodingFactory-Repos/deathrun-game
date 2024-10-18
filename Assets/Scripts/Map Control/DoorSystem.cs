@@ -2,9 +2,12 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Security.Cryptography;
 using UnityEngine;
+using DialogueSystem;
 
 public class RoomManager : MonoBehaviour
 {
+
+    public DialogueManager dialogueManager;
     public GameObject newRoomPrefab;  // Le prefab de la nouvelle pièce à générer
     private Transform player;          // Le joueur à téléporter
     private GameObject currentRoom;   // La pièce actuelle
@@ -27,6 +30,8 @@ public class RoomManager : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            // UnityEngine.Debug.Log(dialogueManager);
+            dialogueManager.DisplayDialogue(null, "Salut ! Bagarre", "Talios");
             currentRoom = GameObject.FindGameObjectWithTag("Map");
             DeleteCurrentRoom();
             GameObject newRoom = Instantiate(newRoomPrefab, new Vector3(4.1f,2.8f,0.0f), Quaternion.identity);
@@ -34,6 +39,10 @@ public class RoomManager : MonoBehaviour
             currentRoom = newRoom;
         }
     }
+
+    //NullReferenceException: Object reference not set to an instance of an object RoomManager.OnTriggerEnter2D (UnityEngine.Collider2D other) (at Assets/Scripts/Map Control/DoorSystem.cs:34)
+
+
 
     void PlacePlayerInNewRoom(GameObject newRoom)
     {
