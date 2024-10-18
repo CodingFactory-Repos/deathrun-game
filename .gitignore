@@ -290,4 +290,8 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+
+# Environment file
+.env
+
 # End of https://www.toptal.com/developers/gitignore/api/macos,windows,linux,unity,intellij+all,clion+all
