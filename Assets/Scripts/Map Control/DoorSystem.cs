@@ -6,17 +6,31 @@ using UnityEngine;
 public class RoomManager : MonoBehaviour
 {
     public GameObject newRoomPrefab;  // Le prefab de la nouvelle pièce à générer
-    public Transform player;          // Le joueur à téléporter
+    private Transform player;          // Le joueur à téléporter
     private GameObject currentRoom;   // La pièce actuelle
 
+     private void Start()
+    {
+        // Trouver le joueur au début, en supposant qu'il a le tag "Player"
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerObject != null)
+        {
+            player = playerObject.transform;
+        }
+        else
+        {
+            UnityEngine.Debug.LogError("Le joueur avec le tag 'Player' n'a pas été trouvé !");
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            GameObject newRoom = Instantiate(newRoomPrefab, new Vector3(4.1f,2.8f,0.0f), Quaternion.identity);
+            
             currentRoom = GameObject.FindGameObjectWithTag("Map");
             DeleteCurrentRoom();
+            GameObject newRoom = Instantiate(newRoomPrefab, new Vector3(4.1f,2.8f,0.0f), Quaternion.identity);
             PlacePlayerInNewRoom(newRoom);
             currentRoom = newRoom;
         }
@@ -26,7 +40,7 @@ public class RoomManager : MonoBehaviour
     {
 
         Transform spawnPoint = newRoom.transform.Find("SpawnPoint");
-
+        bool test =  newRoom.transform.Find("SpawnPoint");
         Vector3 spawnPosition = spawnPoint.position;
         player.position = spawnPosition;
         //GameObject spawnPointObject = GameObject.FindWithTag("Respawn");
