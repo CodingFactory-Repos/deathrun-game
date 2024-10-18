@@ -132,6 +132,7 @@ public class TrapManager : MonoBehaviour
         if (clientSocket != null)
         {
             clientSocket.Dispose(); // Properly close the connection
+            UnityEngine.Debug.LogWarning($"Position ({x}, {y}) est d�j� occup�e ou hors de la grille.");
         }
     }
 

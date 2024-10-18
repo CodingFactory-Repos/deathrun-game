@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.Log("Socket connection error: " + e.Message);
+            //Debug.Log("Socket connection error: " + e.Message);
         }
     }
 
@@ -134,7 +134,7 @@ public class PlayerMovement : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.Log("Socket send error: " + e.Message);
+            //Debug.Log("Socket send error: " + e.Message);
         }
     }
 
