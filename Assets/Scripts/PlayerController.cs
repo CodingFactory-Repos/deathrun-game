@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using SocketIOClient;
+using CandyCoded.env;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -23,11 +24,13 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 previousMovement = Vector2.zero;
 
+    private string socketUrl;
     async void Start()
     {
         try
         {
-            var uri = new Uri("http://localhost:3000");
+            env.TryParseEnvironmentVariable("SOCKET_URL", out string socketUrl);
+            var uri = new Uri(socketUrl);
             clientSocket = new SocketIOUnity(uri);
 
             await clientSocket.ConnectAsync();

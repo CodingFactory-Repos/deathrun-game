@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using SocketIOClient;
 using Newtonsoft.Json.Linq;
+using CandyCoded.env;
 
 public class TrapManager : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class TrapManager : MonoBehaviour
 
     private Queue<TrapPlacement> placementQueue = new Queue<TrapPlacement>();
     private SocketIOUnity clientSocket; // SocketIO client
+
+    private string socketUrl;
 
     void Start()
     {
@@ -35,7 +38,8 @@ public class TrapManager : MonoBehaviour
     {
         try
         {
-            var uri = new Uri("https://d4cc-86-245-196-157.ngrok-free.app"); // Replace with your backend URL
+            env.TryParseEnvironmentVariable("SOCKET_URL", out string socketUrl);
+            var uri = new Uri(socketUrl); // Replace with your backend URL
             clientSocket = new SocketIOUnity(uri);
 
             // Connect to the server
