@@ -91,6 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   newRoomPrefab: {fileID: 6459706332820108789, guid: 35bed5d2a54129845bcff6b3abaa746b, type: 3}
+  player: {fileID: 6754384466861484289, guid: 2359570f2fea24215ae3f989d41b590e, type: 3}
 --- !u!1 &1874311396987187176
 GameObject:
   m_ObjectHideFlags: 0

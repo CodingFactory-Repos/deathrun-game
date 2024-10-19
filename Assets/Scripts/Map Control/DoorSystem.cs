@@ -30,7 +30,8 @@ public class RoomManager : MonoBehaviour
             
             currentRoom = GameObject.FindGameObjectWithTag("Map");
             DeleteCurrentRoom();
-            GameObject newRoom = Instantiate(newRoomPrefab, new Vector3(4.1f,2.8f,0.0f), Quaternion.identity);
+            Vector3 newRoomPosition = new Vector3(4.1f, 2.8f, 0.0f);
+            GameObject newRoom = Instantiate(newRoomPrefab, newRoomPosition, Quaternion.identity);
             PlacePlayerInNewRoom(newRoom);
             currentRoom = newRoom;
         }
