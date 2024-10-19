@@ -7,7 +7,7 @@ using DialogueSystem;
 public class RoomManager : MonoBehaviour
 {
 
-    public DialogueManager dialogueManager;
+    // public DialogueManager dialogueManager;
     public GameObject newRoomPrefab;  // Le prefab de la nouvelle pièce à générer
     private Transform player;          // Le joueur à téléporter
     private GameObject currentRoom;   // La pièce actuelle
@@ -31,7 +31,7 @@ public class RoomManager : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             // UnityEngine.Debug.Log(dialogueManager);
-            dialogueManager.DisplayDialogue(null, "Salut ! Bagarre", "Talios");
+            // dialogueManager.DisplayDialogue(null, "Salut ! Bagarre", "Talios");
             currentRoom = GameObject.FindGameObjectWithTag("Map");
             DeleteCurrentRoom();
             GameObject newRoom = Instantiate(newRoomPrefab, new Vector3(4.1f,2.8f,0.0f), Quaternion.identity);
