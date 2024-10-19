@@ -10,81 +10,22 @@ public class PropsManager : MonoBehaviour
 {
     private Tilemap propsTilemap;  // Reference to the Tilemap component
     private SocketIOUnity clientSocket;
-    private bool isSocketConnected = false;
+    private bool PropsSent = false;
 
-    private async void Start()
+    private void Start()
     {
-        await SetupSocket();
-        // Start checking the connection status regularly
-        InvokeRepeating("CheckSocketAndSendProps", 0f, 5f);
-    }
-
-    // Set up the Socket.IO connection
-    private async Task SetupSocket()
-    {
-        try
-        {
-            env.TryParseEnvironmentVariable("SOCKET_URL", out string socketUrl);
-            var uri = new Uri(socketUrl);
-            clientSocket = new SocketIOUnity(uri);
-
-            // Corrected EventHandler for connection
-            clientSocket.OnConnected += (sender, e) =>
-            {
-                isSocketConnected = true;
-                Debug.Log("Socket connected.");
-            };
-
-            // Corrected EventHandler for disconnection
-            clientSocket.OnDisconnected += (sender, reason) =>
-            {
-                isSocketConnected = false;
-                Debug.LogWarning($"Socket disconnected: {reason}. Attempting to reconnect...");
-                ReconnectSocket();
-            };
-
-            await clientSocket.ConnectAsync();
-
-            if (clientSocket.Connected)
-            {
-                Debug.Log("Connected to backend.");
-            }
-            else
-            {
-                Debug.LogError("Failed to connect to backend.");
-            }
-        }
-        catch (Exception e)
-        {
-            Debug.LogError("Socket connection error: " + e.Message);
-        }
-    }
-
-    // Attempt to reconnect the socket
-    private async void ReconnectSocket()
-    {
-        while (!isSocketConnected)
-        {
-            try
-            {
-                Debug.Log("Reconnecting...");
-                await clientSocket.ConnectAsync();
-            }
-            catch (Exception e)
-            {
-                Debug.LogError("Reconnect failed: " + e.Message);
-            }
-
-            await Task.Delay(5000);  // Wait for 5 seconds before retrying
-        }
+        clientSocket = SocketManager.Instance.ClientSocket;
+        InvokeRepeating(nameof(CheckSocketAndSendProps), 0f, 5f); // Check connection every 5 seconds
     }
 
     // Check if the socket is connected before sending props
-    private void CheckSocketAndSendProps()
+    private async void CheckSocketAndSendProps()
     {
-        if (isSocketConnected)
+        Debug.Log("Checking socket connection...");
+
+        if (!PropsSent && clientSocket != null && clientSocket.Connected)
         {
-            FindAndSendProps();
+            await FindAndSendProps();
         }
         else
         {
@@ -93,7 +34,7 @@ public class PropsManager : MonoBehaviour
     }
 
     // Find the grid and the props tilemap, then send props positions to the server
-    private void FindAndSendProps()
+    private async Task FindAndSendProps()
     {
         GameObject grid = GameObject.Find("Grid");
 
@@ -103,13 +44,14 @@ public class PropsManager : MonoBehaviour
 
             if (propsTilemap != null)
             {
-                Debug.Log("Props Tilemap found!");
                 List<Vector3> propsPositions = GetPropsPositions();
 
                 if (propsPositions.Count > 0)
                 {
                     List<string> propsPositionsString = ConvertPositionsToString(propsPositions);
-                    EmitPropsToServer(propsPositionsString);
+                    await EmitPropsToServer(propsPositionsString);
+
+                    CancelInvoke(nameof(CheckSocketAndSendProps)); // Stop repeating checks after sending
                 }
             }
             else
@@ -138,7 +80,6 @@ public class PropsManager : MonoBehaviour
                 if (propsTilemap.HasTile(tilePosition))
                 {
                     propsPositions.Add(tilePosition);
-                    Debug.Log($"Prop found at grid position: {tilePosition}");
                 }
             }
         }
@@ -162,11 +103,13 @@ public class PropsManager : MonoBehaviour
     }
 
     // Emit the props positions to the server
-    private async void EmitPropsToServer(List<string> propsPositionsString)
+    private async Task EmitPropsToServer(List<string> propsPositionsString)
     {
         try
         {
-            await clientSocket.EmitAsync("props:current", propsPositionsString);
+            Debug.Log("Emitting props to server...");
+            await clientSocket.EmitAsync("rooms:create", propsPositionsString);
+            PropsSent = true;
             Debug.Log("Props successfully sent to server.");
         }
         catch (Exception e)

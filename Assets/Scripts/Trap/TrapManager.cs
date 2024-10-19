@@ -30,31 +30,13 @@ public class TrapManager : MonoBehaviour
         trapPrefabDictionary.Add("crossbow_side_prefab", trapPrefabs[2]);
 
         // Set up Socket.IO client
-        SetupSocket();
         StartCoroutine(ProcessPlacementQueue());
-    }
-
-    async void SetupSocket()
-    {
-        try
-        {
-            env.TryParseEnvironmentVariable("SOCKET_URL", out string socketUrl);
-            var uri = new Uri(socketUrl); // Replace with your backend URL
-            clientSocket = new SocketIOUnity(uri);
-
-            // Connect to the server
-            await clientSocket.ConnectAsync();
-
-            Debug.Log("Connected to backend and listening for trap placement events.");
-        }
-        catch (Exception e)
-        {
-            Debug.LogError("Socket connection error: " + e.Message);
-        }
     }
 
     public void Update()
     {
+        clientSocket = SocketManager.Instance.ClientSocket;
+
         clientSocket.On("traps:place", response =>
         {
             JArray trapDataArray = JArray.Parse(response.ToString());
