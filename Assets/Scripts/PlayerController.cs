@@ -31,9 +31,7 @@ public class PlayerMovement : MonoBehaviour
         {
             env.TryParseEnvironmentVariable("SOCKET_URL", out string socketUrl);
             var uri = new Uri(socketUrl);
-            clientSocket = new SocketIOUnity(uri);
-
-            await clientSocket.ConnectAsync();
+            clientSocket = SocketManager.Instance.ClientSocket;
 
             animator = GetComponent<Animator>();
         }
