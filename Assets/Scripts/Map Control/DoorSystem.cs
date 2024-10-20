@@ -6,13 +6,11 @@ using DialogueSystem;
 
 public class RoomManager : MonoBehaviour
 {
-
-    // public DialogueManager dialogueManager;
     public GameObject newRoomPrefab;  // Le prefab de la nouvelle pièce à générer
     private Transform player;          // Le joueur à téléporter
     private GameObject currentRoom;   // La pièce actuelle
 
-     private void Start()
+    private void Start()
     {
         // Trouver le joueur au début, en supposant qu'il a le tag "Player"
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
@@ -34,7 +32,8 @@ public class RoomManager : MonoBehaviour
             // dialogueManager.DisplayDialogue(null, "Salut ! Bagarre", "Talios");
             currentRoom = GameObject.FindGameObjectWithTag("Map");
             DeleteCurrentRoom();
-            GameObject newRoom = Instantiate(newRoomPrefab, new Vector3(4.1f,2.8f,0.0f), Quaternion.identity);
+            Vector3 newRoomPosition = new Vector3(4.1f, 2.8f, 0.0f);
+            GameObject newRoom = Instantiate(newRoomPrefab, newRoomPosition, Quaternion.identity);
             PlacePlayerInNewRoom(newRoom);
             currentRoom = newRoom;
         }
@@ -48,7 +47,7 @@ public class RoomManager : MonoBehaviour
     {
 
         Transform spawnPoint = newRoom.transform.Find("SpawnPoint");
-        bool test =  newRoom.transform.Find("SpawnPoint");
+        bool test = newRoom.transform.Find("SpawnPoint");
         Vector3 spawnPosition = spawnPoint.position;
         player.position = spawnPosition;
         //GameObject spawnPointObject = GameObject.FindWithTag("Respawn");
