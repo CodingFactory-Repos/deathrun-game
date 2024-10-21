@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using SocketIOClient;
+using CandyCoded.env;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -23,20 +24,20 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 previousMovement = Vector2.zero;
 
+    private string socketUrl;
     async void Start()
     {
         try
         {
-            var uri = new Uri("http://localhost:3000");
-            clientSocket = new SocketIOUnity(uri);
-
-            await clientSocket.ConnectAsync();
+            env.TryParseEnvironmentVariable("SOCKET_URL", out string socketUrl);
+            var uri = new Uri(socketUrl);
+            clientSocket = SocketManager.Instance.ClientSocket;
 
             animator = GetComponent<Animator>();
         }
         catch (Exception e)
         {
-            Debug.Log("Socket connection error: " + e.Message);
+            //Debug.Log("Socket connection error: " + e.Message);
         }
     }
 
@@ -131,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.Log("Socket send error: " + e.Message);
+            //Debug.Log("Socket send error: " + e.Message);
         }
     }
 
