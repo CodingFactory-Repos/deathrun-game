@@ -35,23 +35,23 @@ public class TrapManager : MonoBehaviour
 
     public void Update()
     {
-        // clientSocket = SocketManager.Instance.ClientSocket;
+        clientSocket = SocketManager.Instance.ClientSocket;
 
-        // clientSocket.On("traps:place", response =>
-        // {
-        //     JArray trapDataArray = JArray.Parse(response.ToString());
+        clientSocket.On("traps:place", response =>
+        {
+            JArray trapDataArray = JArray.Parse(response.ToString());
 
-        //     foreach (var trapData in trapDataArray)
-        //     {
-        //         JObject trap = (JObject)trapData["trap"];
+            foreach (var trapData in trapDataArray)
+            {
+                JObject trap = (JObject)trapData["trap"];
 
-        //         int x = trap["x"].Value<int>();
-        //         int y = trap["y"].Value<int>();
-        //         string trapType = trap["trapType"].Value<string>();
+                int x = trap["x"].Value<int>();
+                int y = trap["y"].Value<int>();
+                string trapType = trap["trapType"].Value<string>();
 
-        //         EnqueuePlacementOrder(x, y, trapType);
-        //     }
-        // });
+                EnqueuePlacementOrder(x, y, trapType);
+            }
+        });
     }
 
     private void EnqueuePlacementOrder(int x, int y, string trapType)
