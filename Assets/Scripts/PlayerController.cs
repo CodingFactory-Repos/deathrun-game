@@ -128,7 +128,6 @@ public class PlayerMovement : MonoBehaviour
         try
         {
             await clientSocket.EmitAsync(channel, data);
-            Debug.Log("Data sent: " + $"{channel}|{data}");
         }
         catch (Exception e)
         {
