@@ -28,8 +28,7 @@ public class RoomManager : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // UnityEngine.Debug.Log(dialogueManager);
-            // dialogueManager.DisplayDialogue(null, "Salut ! Bagarre", "Talios");
+            UnityEngine.Debug.LogError("HERE !");
             currentRoom = GameObject.FindGameObjectWithTag("Map");
             DeleteCurrentRoom();
             Vector3 newRoomPosition = new Vector3(4.1f, 2.8f, 0.0f);
@@ -38,9 +37,6 @@ public class RoomManager : MonoBehaviour
             currentRoom = newRoom;
         }
     }
-
-    //NullReferenceException: Object reference not set to an instance of an object RoomManager.OnTriggerEnter2D (UnityEngine.Collider2D other) (at Assets/Scripts/Map Control/DoorSystem.cs:34)
-
 
 
     void PlacePlayerInNewRoom(GameObject newRoom)
