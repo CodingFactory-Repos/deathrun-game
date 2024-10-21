@@ -14,7 +14,8 @@ public class MainMenu : MonoBehaviour
 
    public void StartRoom(){
 
-      SceneManager.LoadScene(selectedScene);
+    
+       SceneManager.LoadScene(selectedScene);
 
    }
 }
