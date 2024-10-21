@@ -91,7 +91,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   newRoomPrefab: {fileID: 6459706332820108789, guid: 35bed5d2a54129845bcff6b3abaa746b, type: 3}
-  player: {fileID: 6754384466861484289, guid: 2359570f2fea24215ae3f989d41b590e, type: 3}
 --- !u!1 &1874311396987187176
 GameObject:
   m_ObjectHideFlags: 0
@@ -1344,7 +1343,7 @@ Transform:
   m_GameObject: {fileID: 6369746937129949933}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.1000004, y: 2.8000002, z: 0}
+  m_LocalPosition: {x: 0.1, y: 2.8000002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
