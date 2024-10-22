@@ -7,15 +7,24 @@ public class MainMenu : MonoBehaviour
 {
    public string selectedScene;
 
-   public void QuitGame(){
+   private SocketIOUnity clientSocket;
 
-    Application.Quit();
+
+   void Start()
+   {
+      clientSocket = SocketManager.Instance.ClientSocket;
    }
 
-   public void StartRoom(){
+   public void QuitGame()
+   {
 
-    
-       SceneManager.LoadScene(selectedScene);
+      Application.Quit();
+   }
 
+   public async void StartRoom()
+   {
+      await clientSocket.EmitAsync("rooms:create");
+
+      SceneManager.LoadScene(selectedScene);
    }
 }

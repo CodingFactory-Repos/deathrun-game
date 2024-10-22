@@ -8,7 +8,8 @@ public class PauseMenu : MonoBehaviour
     public static bool gameIsPaused = false;
     public GameObject pauseMenuUI;
 
-    void Update(){
+    void Update()
+    {
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -25,7 +26,8 @@ public class PauseMenu : MonoBehaviour
         gameIsPaused = true;
     }
 
-    public void Resume(){
+    public void Resume()
+    {
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1;
         gameIsPaused = false;
@@ -34,10 +36,10 @@ public class PauseMenu : MonoBehaviour
     public void LoadMainMenu()
     {
         Resume();
-        GameObject player = GameObject.FindWithTag("Player");
-        if (player != null) Destroy(player.gameObject);
+        GameObject socket = GameObject.FindWithTag("Temporary");
+        if (socket != null) Destroy(socket.gameObject);
         SceneManager.LoadScene("Menu");
-        
+
     }
 
 }

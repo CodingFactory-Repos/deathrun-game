@@ -108,7 +108,7 @@ public class PropsManager : MonoBehaviour
         try
         {
             Debug.Log("Emitting props to server...");
-            await clientSocket.EmitAsync("rooms:create", propsPositionsString);
+            await clientSocket.EmitAsync("props:send", propsPositionsString);
             PropsSent = true;
             Debug.Log("Props successfully sent to server.");
         }
