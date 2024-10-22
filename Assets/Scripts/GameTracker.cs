@@ -60,6 +60,8 @@ public class GameTracker : MonoBehaviour
             return;  
         }
 
+
+
         // Apparition du forgeron au stage 5
         if (stageCounter >= 5 && blacksmithPrefab != null)
         {
