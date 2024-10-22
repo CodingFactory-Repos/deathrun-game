@@ -229,4 +229,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arrowPrefab: {fileID: 3287929166512674387, guid: ef0c1d77c55ae384da75934d4d35628a, type: 3}
   firePoint: {fileID: 3203241062154977645}
-  arrowDirection: {x: 1, y: 0, z: 0}
+  arrowDirection: {x: -1, y: 0, z: 0}
