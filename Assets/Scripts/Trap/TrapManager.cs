@@ -19,7 +19,7 @@ public class TrapManager : MonoBehaviour
 
     private string socketUrl;
 
-    void Start()
+    async void Start()
     {
         // Initialize the grid
         grid = new string[gridSizeX, gridSizeY];
@@ -29,14 +29,17 @@ public class TrapManager : MonoBehaviour
         trapPrefabDictionary.Add("crossbow_up_prefab", trapPrefabs[1]);
         trapPrefabDictionary.Add("crossbow_side_prefab", trapPrefabs[2]);
 
-        // Set up Socket.IO client
+        clientSocket = SocketManager.Instance.ClientSocket;
+
+        // Start processing the placement queue
         StartCoroutine(ProcessPlacementQueue());
+
+        await clientSocket.EmitAsync("traps:reload");
     }
+
 
     public void Update()
     {
-        clientSocket = SocketManager.Instance.ClientSocket;
-
         clientSocket.On("traps:place", response =>
         {
             JArray trapDataArray = JArray.Parse(response.ToString());
@@ -67,6 +70,7 @@ public class TrapManager : MonoBehaviour
             {
                 TrapPlacement placement = placementQueue.Dequeue();
                 SpawnTrapAtPosition(placement.x, placement.y, placement.trapType);
+
             }
 
             yield return null; // Wait for the next frame
