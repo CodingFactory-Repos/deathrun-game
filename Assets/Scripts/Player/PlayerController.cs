@@ -24,9 +24,13 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 previousMovement = Vector2.zero;
 
+    private Player player; 
+
     private string socketUrl;
     async void Start()
     {
+
+        player = GetComponent<Player>();
         try
         {
             env.TryParseEnvironmentVariable("SOCKET_URL", out string socketUrl);

@@ -1,62 +1,69 @@
-using System.Collections.Specialized;
-using System.Diagnostics;
-using System.Security.Cryptography;
 using UnityEngine;
-using DialogueSystem;
 
 public class RoomManager : MonoBehaviour
 {
-    public GameObject newRoomPrefab;  // Le prefab de la nouvelle pièce à générer
-    private Transform player;          // Le joueur à téléporter
-    private GameObject currentRoom;   // La pièce actuelle
+    public GameObject newRoomPrefab;  
+    private Transform player;         
+    private GameObject currentRoom;   
+
+    private GameTracker gameTracker;
+    public static bool isInCorridorX7 = false;
 
     private void Start()
     {
-        // Trouver le joueur au début, en supposant qu'il a le tag "Player"
+  
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject != null)
         {
             player = playerObject.transform;
         }
-        else
-        {
-            UnityEngine.Debug.LogError("Le joueur avec le tag 'Player' n'a pas été trouvé !");
-        }
+        gameTracker = FindObjectOfType<GameTracker>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            UnityEngine.Debug.LogError("HERE !");
+      
+            if (isInCorridorX7)
+            {
+                gameTracker.ClearCorridorEvents();
+                isInCorridorX7 = false;  
+            }
+
             currentRoom = GameObject.FindGameObjectWithTag("Map");
             DeleteCurrentRoom();
             Vector3 newRoomPosition = new Vector3(4.1f, 2.8f, 0.0f);
             GameObject newRoom = Instantiate(newRoomPrefab, newRoomPosition, Quaternion.identity);
             PlacePlayerInNewRoom(newRoom);
             currentRoom = newRoom;
+
+     
+            if (newRoom.name.Contains("CorridorX7"))
+            {
+                gameTracker.SpawnCorridorEvents();  
+                isInCorridorX7 = true;  
+            }
+            else{
+                if (gameTracker != null)
+                    {
+                        gameTracker.NextStage();
+                    }
+            }
+
+         
         }
     }
 
-
     void PlacePlayerInNewRoom(GameObject newRoom)
     {
-
         Transform spawnPoint = newRoom.transform.Find("SpawnPoint");
-        bool test = newRoom.transform.Find("SpawnPoint");
         Vector3 spawnPosition = spawnPoint.position;
         player.position = spawnPosition;
-        //GameObject spawnPointObject = GameObject.FindWithTag("Respawn");
-        //UnityEngine.Debug.Log(spawnPointObject.transform.position);
-        //Vector3 spawnPosition = spawnPointObject.transform.position;
-        //UnityEngine.Debug.Log(spawnPosition);
-        //player.position = spawnPosition;
-
     }
 
     void DeleteCurrentRoom()
     {
         Destroy(currentRoom);
     }
-
 }
