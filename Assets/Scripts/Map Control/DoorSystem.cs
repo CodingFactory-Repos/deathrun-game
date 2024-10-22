@@ -43,10 +43,12 @@ public class RoomManager : MonoBehaviour
             {
                 gameTracker.SpawnCorridorEvents();  
                 isInCorridorX7 = true;  
+                UnityEngine.Debug.Log("Coucou");
             }
             else{
                 if (gameTracker != null)
                     {
+                        
                         gameTracker.NextStage();
                     }
             }
