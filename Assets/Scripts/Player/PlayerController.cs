@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 using SocketIOClient;
 using CandyCoded.env;
@@ -23,21 +21,36 @@ public class PlayerMovement : MonoBehaviour
     public Animator animator;
 
     private Vector2 previousMovement = Vector2.zero;
-
-    private Player player; 
-
+    private Player player;
+    private float cameraHeight;
+    private float cameraWidth;
+    private Vector2 minCameraPosition;
+    private Vector2 maxCameraPosition;
     private string socketUrl;
+
     async void Start()
     {
-
         player = GetComponent<Player>();
         try
         {
             env.TryParseEnvironmentVariable("SOCKET_URL", out string socketUrl);
             var uri = new Uri(socketUrl);
             clientSocket = SocketManager.Instance.ClientSocket;
-
             animator = GetComponent<Animator>();
+
+            if (mainCamera == null)
+            {
+                mainCamera = Camera.main;
+                if (mainCamera == null)
+                {
+                    Debug.LogError("No Main Camera found in the scene. Please ensure a camera is tagged as 'MainCamera'.");
+                }
+            }
+
+            cameraHeight = 2f * mainCamera.orthographicSize;
+            cameraWidth = cameraHeight * mainCamera.aspect;
+            minCameraPosition = new Vector2(mainCamera.transform.position.x - cameraWidth / 2, mainCamera.transform.position.y - cameraHeight / 2);
+            maxCameraPosition = new Vector2(mainCamera.transform.position.x + cameraWidth / 2, mainCamera.transform.position.y + cameraHeight / 2);
         }
         catch (Exception e)
         {
@@ -78,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void LateUpdate()
     {
-        UpdateCameraPosition();  // Move to LateUpdate for better camera syncing
+        UpdateCameraPosition();
     }
 
     void MovePlayer(Vector2 movement)
@@ -110,7 +123,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (mainCamera != null)
         {
-            mainCamera.transform.position = transform.position + cameraOffset;
+            Vector2 playerPosition = new Vector2(transform.position.x, transform.position.y);
+            Vector3 targetCameraPosition = new Vector3(mainCamera.transform.position.x, playerPosition.y + cameraOffset.y, mainCamera.transform.position.z);
+
+            if (playerPosition.y > maxCameraPosition.y || playerPosition.y < minCameraPosition.y)
+            {
+                mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, targetCameraPosition, Time.deltaTime * 5f);
+            }
         }
     }
 
@@ -143,7 +162,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (clientSocket != null)
         {
-            clientSocket.Dispose();  // Properly close the connection
+            clientSocket.Dispose();
         }
     }
 }
