@@ -29,11 +29,6 @@ public class TrapManager : MonoBehaviour
         trapPrefabDictionary.Add("crossbow_up_prefab", trapPrefabs[1]);
         trapPrefabDictionary.Add("crossbow_side_prefab", trapPrefabs[0]);
 
-        // Place a trap
-        SpawnTrapAtPosition(4, 4, "crossbow_down_prefab");
-        SpawnTrapAtPosition(4, 5, "crossbow_up_prefab");
-        SpawnTrapAtPosition(3, 5, "crossbow_side_prefab");
-
         clientSocket = SocketManager.Instance.ClientSocket;
 
         StartCoroutine(ProcessPlacementQueue());
