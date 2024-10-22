@@ -52,6 +52,7 @@ public class GameTracker : MonoBehaviour
     public void SpawnCorridorEvents()
     {
         altarSpawnPoint = GameObject.Find("AltarSpawnPoint")?.transform;
+        blacksmithSpawnPoint = GameObject.Find("BlacksmithSpawnPoint")?.transform;
 
         if (blacksmithSpawnPoint == null || altarSpawnPoint == null)
         {
