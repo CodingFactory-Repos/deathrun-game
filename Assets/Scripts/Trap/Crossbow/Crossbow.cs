@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class Crossbow : MonoBehaviour
 {
-    public GameObject arrowPrefab;  // Référence au prefab de la flèche
-    public Transform firePoint;  // Point d'où la flèche sera tirée
-    public Vector3 arrowDirection = Vector3.right;  // Direction de la flèche (1 ou -1 en x, puis 1 ou -1 en Y, globalement droite gauche haut bas)
+    public GameObject arrowPrefab;  // Rï¿½fï¿½rence au prefab de la flï¿½che
+    public Transform firePoint;  // Point d'oï¿½ la flï¿½che sera tirï¿½e
+    public Vector3 arrowDirection = Vector3.right;  // Direction de la flï¿½che (1 ou -1 en x, puis 1 ou -1 en Y, globalement droite gauche haut bas)
     private Animator animator;
 
     void Start()
@@ -26,10 +26,10 @@ public class Crossbow : MonoBehaviour
 
     public void FireArrow()
     {
-        // Instancier la flèche au firePoint
+        // Instancier la flï¿½che au firePoint
         GameObject arrow = Instantiate(arrowPrefab, firePoint.position, firePoint.rotation);
 
-        // Configurer la direction de la flèche
+        // Configurer la direction de la flï¿½che
         Arrow arrowScript = arrow.GetComponent<Arrow>();
         arrowScript.direction = arrowDirection;
     }
