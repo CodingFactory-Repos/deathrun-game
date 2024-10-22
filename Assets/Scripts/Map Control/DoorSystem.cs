@@ -2,16 +2,16 @@ using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
-    public GameObject newRoomPrefab;  
-    private Transform player;         
-    private GameObject currentRoom;   
+    public GameObject newRoomPrefab;
+    private Transform player;
+    private GameObject currentRoom;
 
     private GameTracker gameTracker;
     public static bool isInCorridorX7 = false;
 
     private void Start()
     {
-  
+
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject != null)
         {
@@ -24,11 +24,11 @@ public class RoomManager : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-      
+
             if (isInCorridorX7)
             {
                 gameTracker.ClearCorridorEvents();
-                isInCorridorX7 = false;  
+                isInCorridorX7 = false;
             }
 
             currentRoom = GameObject.FindGameObjectWithTag("Map");
@@ -38,22 +38,35 @@ public class RoomManager : MonoBehaviour
             PlacePlayerInNewRoom(newRoom);
             currentRoom = newRoom;
 
-     
-            if (newRoom.name.Contains("CorridorX7"))
+            GameObject[] traps = GameObject.FindGameObjectsWithTag("trap");
+            if (traps == null)
             {
-                gameTracker.SpawnCorridorEvents();  
-                isInCorridorX7 = true;  
-                UnityEngine.Debug.Log("Coucou");
+                UnityEngine.Debug.Log("No traps found");
             }
-            else{
-                if (gameTracker != null)
-                    {
-                        
-                        gameTracker.NextStage();
-                    }
+            else
+            {
+                foreach (GameObject trap in traps)
+                {
+                    Destroy(trap);
+                }
             }
 
-         
+
+            if (newRoom.name.Contains("CorridorX7"))
+            {
+                gameTracker.SpawnCorridorEvents();
+                isInCorridorX7 = true;
+                UnityEngine.Debug.Log("Coucou");
+            }
+            else
+            {
+                if (gameTracker != null)
+                {
+                    gameTracker.NextStage();
+                }
+            }
+
+
         }
     }
 
