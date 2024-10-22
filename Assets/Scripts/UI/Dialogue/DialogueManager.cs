@@ -20,7 +20,6 @@ namespace DialogueSystem
 
         private Coroutine hideCanvasCoroutine;
 
-        // Start is called before the first frame update
         void Start()
         {
             dialogueCanvas = GameObject.FindGameObjectWithTag("Dialogue");
