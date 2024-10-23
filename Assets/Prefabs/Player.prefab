@@ -76,8 +76,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1791178601
-  m_SortingLayer: 3
+  m_SortingLayerID: -1234118259
+  m_SortingLayer: 2
   m_SortingOrder: 100
   m_Sprite: {fileID: -1136445171, guid: 3551ac8dbe8b24a4fbe3c2bd0ba220aa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -106,7 +106,6 @@ MonoBehaviour:
   dashSpeed: 10
   dashDuration: 0.2
   dashCooldown: 1
-  mainCamera: {fileID: 0}
   cameraOffset: {x: 0, y: 0, z: -50}
   animator: {fileID: 2136192976700920181}
   minCameraPosition: {x: 0, y: -2}
