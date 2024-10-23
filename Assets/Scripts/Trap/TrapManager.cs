@@ -11,7 +11,7 @@ public class TrapManager : MonoBehaviour
     public List<GameObject> trapPrefabs = new List<GameObject>();
     private Dictionary<string, GameObject> trapPrefabDictionary = new Dictionary<string, GameObject>();
     private int gridSizeX = 9;
-    private int gridSizeY = 9;
+    private int gridSizeY = 23;
     private string[,] grid;
 
     private Queue<TrapPlacement> placementQueue = new Queue<TrapPlacement>();
