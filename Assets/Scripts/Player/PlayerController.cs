@@ -24,9 +24,12 @@ public class PlayerMovement : MonoBehaviour
     private Player player;
     private float cameraHeight;
     private float cameraWidth;
-    private Vector2 minCameraPosition;
-    private Vector2 maxCameraPosition;
+    public Vector2 minCameraPosition;
+    public Vector2 maxCameraPosition;
     private string socketUrl;
+
+    //public float minYLimit;  
+    //public float maxYLimit;  
 
     async void Start()
     {
@@ -124,12 +127,15 @@ public class PlayerMovement : MonoBehaviour
         if (mainCamera != null)
         {
             Vector2 playerPosition = new Vector2(transform.position.x, transform.position.y);
+
+            
             Vector3 targetCameraPosition = new Vector3(mainCamera.transform.position.x, playerPosition.y + cameraOffset.y, mainCamera.transform.position.z);
 
-            if (playerPosition.y > maxCameraPosition.y || playerPosition.y < minCameraPosition.y)
-            {
-                mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, targetCameraPosition, Time.deltaTime * 5f);
-            }
+          
+            targetCameraPosition.y = Mathf.Clamp(targetCameraPosition.y, minCameraPosition.y + cameraHeight / 2, maxCameraPosition.y - cameraHeight / 2);
+
+          
+            mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, targetCameraPosition, Time.deltaTime * 5f);
         }
     }
 
