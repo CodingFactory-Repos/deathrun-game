@@ -5,170 +5,178 @@ using CandyCoded.env;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private SocketIOUnity clientSocket;
-    private Vector2 movementInput;
-    public float moveSpeed = 5f;
-    public float dashSpeed = 8f;
-    public float dashDuration = 0.2f;
-    public float dashCooldown = 5f;
+	private SocketIOUnity clientSocket;
+	private Vector2 movementInput;
+	public float moveSpeed = 5f;
+	public float dashSpeed = 8f;
+	public float dashDuration = 0.2f;
+	public float dashCooldown = 5f;
 
-    private bool isDashing = false;
-    private float dashTimeLeft = 0f;
-    private float dashCooldownTimeLeft = 0f;
+	private bool isDashing = false;
+	private float dashTimeLeft = 0f;
+	private float dashCooldownTimeLeft = 0f;
 
-    public Camera mainCamera;
-    public Vector3 cameraOffset = new Vector3(0, 0, -10);
-    public Animator animator;
+	private Camera mainCamera;
+	public Vector3 cameraOffset = new Vector3(0, 0, -10);
+	public Animator animator;
 
-    private Vector2 previousMovement = Vector2.zero;
-    private Player player;
-    private float cameraHeight;
-    private float cameraWidth;
-    public Vector2 minCameraPosition;
-    public Vector2 maxCameraPosition;
-    private string socketUrl;
+	private Vector2 previousMovement = Vector2.zero;
+	private Player player;
+	private float cameraHeight;
+	private float cameraWidth;
+	public Vector2 minCameraPosition;
+	public Vector2 maxCameraPosition;
+	private string socketUrl;
 
-    //public float minYLimit;  
-    //public float maxYLimit;  
+	async void Start()
+	{
+		player = GetComponent<Player>();
+		if (player == null)
+		{
+			Debug.LogError("Player component missing!");
+		}
 
-    async void Start()
-    {
-        player = GetComponent<Player>();
-        try
-        {
-            env.TryParseEnvironmentVariable("SOCKET_URL", out string socketUrl);
-            var uri = new Uri(socketUrl);
-            clientSocket = SocketManager.Instance.ClientSocket;
-            animator = GetComponent<Animator>();
+		animator = GetComponent<Animator>();
+		if (animator == null)
+		{
+			Debug.LogError("Animator component missing on the player!");
+		}
 
-            if (mainCamera == null)
-            {
-                mainCamera = Camera.main;
-                if (mainCamera == null)
-                {
-                    Debug.LogError("No Main Camera found in the scene. Please ensure a camera is tagged as 'MainCamera'.");
-                }
-            }
+		mainCamera = Camera.main;
+		if (mainCamera == null)
+		{
+			Debug.LogError("No Main Camera found in the scene. Please ensure a camera is tagged as 'MainCamera'.");
+		}
+		else
+		{
+			cameraHeight = 2f * mainCamera.orthographicSize;
+			cameraWidth = cameraHeight * mainCamera.aspect;
+		}
 
-            cameraHeight = 2f * mainCamera.orthographicSize;
-            cameraWidth = cameraHeight * mainCamera.aspect;
-            minCameraPosition = new Vector2(mainCamera.transform.position.x - cameraWidth / 2, mainCamera.transform.position.y - cameraHeight / 2);
-            maxCameraPosition = new Vector2(mainCamera.transform.position.x + cameraWidth / 2, mainCamera.transform.position.y + cameraHeight / 2);
-        }
-        catch (Exception e)
-        {
-            //Debug.Log("Socket connection error: " + e.Message);
-        }
-    }
+		try
+		{
+			env.TryParseEnvironmentVariable("SOCKET_URL", out string socketUrl);
+			var uri = new Uri(socketUrl);
+			clientSocket = SocketManager.Instance.ClientSocket;
 
-    void Update()
-    {
-        movementInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+			if (clientSocket == null)
+			{
+				Debug.LogError("SocketIO client is null! Check SocketManager initialization.");
+			}
+		}
+		catch (Exception e)
+		{
+			Debug.LogError("Socket connection error: " + e.Message);
+		}
+	}
 
-        if (Input.GetKeyDown(KeyCode.Space) && dashCooldownTimeLeft <= 0)
-        {
-            StartDash();
-        }
+	void Update()
+	{
+		movementInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
-        if (isDashing)
-        {
-            dashTimeLeft -= Time.deltaTime;
-            if (dashTimeLeft <= 0)
-            {
-                EndDash();
-            }
-        }
-        else if (dashCooldownTimeLeft > 0)
-        {
-            dashCooldownTimeLeft -= Time.deltaTime;
-        }
-    }
+		if (Input.GetKeyDown(KeyCode.Space) && dashCooldownTimeLeft <= 0)
+		{
+			StartDash();
+		}
 
-    private void FixedUpdate()
-    {
-        if (movementInput != Vector2.zero)
-        {
-            MovePlayer(movementInput);
-        }
-    }
+		if (isDashing)
+		{
+			dashTimeLeft -= Time.deltaTime;
+			if (dashTimeLeft <= 0)
+			{
+				EndDash();
+			}
+		}
+		else if (dashCooldownTimeLeft > 0)
+		{
+			dashCooldownTimeLeft -= Time.deltaTime;
+		}
+	}
 
-    private void LateUpdate()
-    {
-        UpdateCameraPosition();
-    }
+	private void FixedUpdate()
+	{
+		if (movementInput != Vector2.zero)
+		{
+			MovePlayer(movementInput);
+		}
+	}
 
-    void MovePlayer(Vector2 movement)
-    {
-        float currentSpeed = isDashing ? dashSpeed : moveSpeed;
-        movement.x = (float)Math.Round(movement.x, 2);
-        movement.y = (float)Math.Round(movement.y, 2);
+	private void LateUpdate()
+	{
+		UpdateCameraPosition();
+	}
 
-        Vector3 movementVector = new Vector3(movement.x, movement.y, 0f) * currentSpeed * Time.fixedDeltaTime;
-        transform.position += movementVector;
+	void MovePlayer(Vector2 movement)
+	{
+		float currentSpeed = isDashing ? dashSpeed : moveSpeed;
+		movement.x = (float)Math.Round(movement.x, 2);
+		movement.y = (float)Math.Round(movement.y, 2);
 
-        SendData("players:move", transform.position.ToString());
+		Vector3 movementVector = new Vector3(movement.x, movement.y, 0f) * currentSpeed * Time.fixedDeltaTime;
+		transform.position += movementVector;
 
-        if (animator != null)
-        {
-            UpdateAnimatorParameters(movement, previousMovement);
-        }
+		SendData("players:move", transform.position.ToString());
 
-        previousMovement = movement;
-    }
+		if (animator != null)
+		{
+			UpdateAnimatorParameters(movement, previousMovement);
+		}
 
-    void UpdateAnimatorParameters(Vector2 movement, Vector2 previousMovement)
-    {
-        animator.SetFloat("MoveX", movement.x);
-        animator.SetFloat("MoveY", movement.y);
-    }
+		previousMovement = movement;
+	}
 
-    void UpdateCameraPosition()
-    {
-        if (mainCamera != null)
-        {
-            Vector2 playerPosition = new Vector2(transform.position.x, transform.position.y);
+	void UpdateAnimatorParameters(Vector2 movement, Vector2 previousMovement)
+	{
+		animator.SetFloat("MoveX", movement.x);
+		animator.SetFloat("MoveY", movement.y);
+	}
 
-            
-            Vector3 targetCameraPosition = new Vector3(mainCamera.transform.position.x, playerPosition.y + cameraOffset.y, mainCamera.transform.position.z);
+	void UpdateCameraPosition()
+	{
+		if (mainCamera != null)
+		{
+			Vector2 playerPosition = new Vector2(transform.position.x, transform.position.y);
 
-          
-            targetCameraPosition.y = Mathf.Clamp(targetCameraPosition.y, minCameraPosition.y + cameraHeight / 2, maxCameraPosition.y - cameraHeight / 2);
+			Vector3 targetCameraPosition = new Vector3(mainCamera.transform.position.x, playerPosition.y + cameraOffset.y, mainCamera.transform.position.z);
+			targetCameraPosition.y = Mathf.Clamp(targetCameraPosition.y, minCameraPosition.y + cameraHeight / 2, maxCameraPosition.y - cameraHeight / 2);
 
-          
-            mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, targetCameraPosition, Time.deltaTime * 5f);
-        }
-    }
+			mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, targetCameraPosition, Time.deltaTime * 5f);
+		}
+	}
 
-    void StartDash()
-    {
-        isDashing = true;
-        dashTimeLeft = dashDuration;
-        dashCooldownTimeLeft = dashCooldown;
-    }
+	void StartDash()
+	{
+		isDashing = true;
+		dashTimeLeft = dashDuration;
+		dashCooldownTimeLeft = dashCooldown;
+	}
 
-    void EndDash()
-    {
-        isDashing = false;
-        Debug.Log("Dash ended");
-    }
+	void EndDash()
+	{
+		isDashing = false;
+		Debug.Log("Dash ended");
+	}
 
-    async void SendData(string channel, string data)
-    {
-        try
-        {
-            await clientSocket.EmitAsync(channel, data);
-        }
-        catch (Exception e)
-        {
-            //Debug.Log("Socket send error: " + e.Message);
-        }
-    }
+	async void SendData(string channel, string data)
+	{
+		try
+		{
+			if (clientSocket != null)
+			{
+				await clientSocket.EmitAsync(channel, data);
+			}
+		}
+		catch (Exception e)
+		{
+			Debug.LogError("Socket send error: " + e.Message);
+		}
+	}
 
-    void OnApplicationQuit()
-    {
-        if (clientSocket != null)
-        {
-            clientSocket.Dispose();
-        }
-    }
+	void OnApplicationQuit()
+	{
+		if (clientSocket != null)
+		{
+			clientSocket.Dispose();
+		}
+	}
 }
