@@ -2777,8 +2777,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trapPrefabs:
   - {fileID: 6097000079642511365, guid: 127c53d14a0062f41a16963a87a85dc5, type: 3}
-  - {fileID: 7646078152559978388, guid: 40bc1f37707e62f4297f85bf5c7b01b4, type: 3}
   - {fileID: 6762149095286452822, guid: d7c2a5ac1f23afe428f872343ed56d71, type: 3}
+  - {fileID: 7646078152559978388, guid: 40bc1f37707e62f4297f85bf5c7b01b4, type: 3}
 --- !u!1 &4171805761210331374
 GameObject:
   m_ObjectHideFlags: 0
