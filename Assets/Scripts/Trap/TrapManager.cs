@@ -31,7 +31,6 @@ public class TrapManager : MonoBehaviour
 
         clientSocket = SocketManager.Instance.ClientSocket;
 
-        // Start processing the placement queue
         StartCoroutine(ProcessPlacementQueue());
 
         await clientSocket.EmitAsync("traps:reload");
@@ -91,7 +90,7 @@ public class TrapManager : MonoBehaviour
                 {
 
                     // Instantiate the prefab at the calculated position
-                    Vector3 spawnPosition = new Vector3(x, y, 0);
+                    Vector3 spawnPosition = new Vector3(x + 0.5f, y - 0.25f, 0);
                     GameObject spawnedTrap = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
 
                     // Mark the grid spot as occupied
