@@ -26,7 +26,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 910646895828460860, guid: 2915528a48cff2a4f972254b123a3e0b, type: 3}
       propertyPath: m_Name
-      value: Dialogue Variant
+      value: Dialogue_vertical
       objectReference: {fileID: 0}
     - target: {fileID: 910646895828460860, guid: 2915528a48cff2a4f972254b123a3e0b, type: 3}
       propertyPath: m_TagString
