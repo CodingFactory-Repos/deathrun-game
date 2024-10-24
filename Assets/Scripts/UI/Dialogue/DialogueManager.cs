@@ -69,26 +69,17 @@ namespace DialogueSystem
         {
             clientSocket.On("god:message", response =>
             {
-                Debug.Log("Received message from God!");
                 Debug.Log(response.ToString());
 
                 JArray trapDataArray = JArray.Parse(response.ToString());
                 JObject messageData = (JObject)trapDataArray[0][0];
 
-                Debug.Log($"Message data: {messageData}");
-
                 string godId = messageData["godID"].ToString();
                 string messageText = messageData["message"].ToString();
 
-                Debug.Log($"Received message from God {godId}: {messageText}");
-
-                // Check if the god ID exists in the dictionary
                 if (godPrefabDictionary.TryGetValue(godId, out GodInfo godInfo))
                 {
-                    Debug.Log($"God with ID '{godId}' found in the dictionary.");
-                    Debug.Log($"God name: {godInfo.godName}");
                     EnqueueMessage(godInfo.godSprite, messageText, godInfo.godName);
-                    Debug.Log($"Message enqueued for God {godId}");
                 }
                 else
                 {
@@ -100,8 +91,6 @@ namespace DialogueSystem
 
         private void EnqueueMessage(Sprite godSprite, string dialogue, string title)
         {
-            Debug.Log("Enqueuing message...");
-            Debug.Log($"dialogue: {dialogue}, title: {title}");
             messageQueue.Enqueue(new GodMessage(godSprite, dialogue, title));
         }
 
@@ -113,10 +102,6 @@ namespace DialogueSystem
                 {
                     GodMessage nextMessage = messageQueue.Dequeue();
 
-                    Debug.Log("Displaying message...");
-
-                    Debug.Log($"dialogue: {nextMessage.dialogue}, title: {nextMessage.title}");
-
                     DisplayDialogue(nextMessage.godSprite, nextMessage.dialogue, nextMessage.title);
                     isDisplayingMessage = true;
 
@@ -125,13 +110,15 @@ namespace DialogueSystem
                     isDisplayingMessage = false;
                 }
 
-                yield return null; // Attendre le frame suivant
+                // Continue processing messages in the next frame
+                yield return null;
             }
         }
 
+
         public void DisplayDialogue(Sprite newGodSprite, string newDialogue, string newTitle)
         {
-            if (!dialogueCanvas.activeSelf)
+            if (dialogueCanvas != null)
             {
                 dialogueCanvas.SetActive(true);
             }
@@ -149,6 +136,7 @@ namespace DialogueSystem
                 StopCoroutine(hideCanvasCoroutine);
             }
 
+            // Start the coroutine to hide the canvas after the specified delay
             hideCanvasCoroutine = StartCoroutine(HideCanvasAfterDelay(20f));
         }
 
@@ -156,7 +144,7 @@ namespace DialogueSystem
         {
             yield return new WaitForSeconds(delay);
 
-            if (dialogueCanvas != null)
+            if (dialogueCanvas != null && messageQueue.Count == 0)
             {
                 dialogueCanvas.SetActive(false);
             }
