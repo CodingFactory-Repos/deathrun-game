@@ -1,4 +1,6 @@
 using UnityEngine;
+using SocketIOClient;
+
 
 public class RoomManager : MonoBehaviour
 {
@@ -7,10 +9,12 @@ public class RoomManager : MonoBehaviour
     private GameObject currentRoom;
 
     private GameTracker gameTracker;
+    private SocketIOUnity clientSocket;
     public static bool isInCorridorX7 = false;
 
     private void Start()
     {
+        clientSocket = SocketManager.Instance.ClientSocket;
 
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject != null)
@@ -50,24 +54,20 @@ public class RoomManager : MonoBehaviour
                     Destroy(trap);
                 }
             }
-
-
             if (newRoom.name.Contains("CorridorX7"))
             {
                 gameTracker.SpawnCorridorEvents();
+                gameTracker.NextStage();
                 isInCorridorX7 = true;
-                UnityEngine.Debug.Log("Coucou");
+                SocketEmitter();
             }
-            else
-            {
-                if (gameTracker != null)
-                {
-                    gameTracker.NextStage();
-                }
-            }
-
 
         }
+    }
+
+    async void SocketEmitter()
+    {
+        await clientSocket.EmitAsync("rooms:corridor");
     }
 
     void PlacePlayerInNewRoom(GameObject newRoom)

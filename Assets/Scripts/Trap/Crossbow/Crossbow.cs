@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class Crossbow : MonoBehaviour
 {
-    public GameObject arrowPrefab;  // R�f�rence au prefab de la fl�che
-    public Transform firePoint;  // Point d'o� la fl�che sera tir�e
-    public Vector3 arrowDirection = Vector3.right;  // Direction de la fl�che (1 ou -1 en x, puis 1 ou -1 en Y, globalement droite gauche haut bas)
+    public GameObject arrowPrefab;
+    public Transform firePoint;  // Point d'où la flèche sera tirée
+    public Vector3 arrowDirection = Vector3.right;  // Direction de la flèche
     private Animator animator;
 
     void Start()
@@ -18,19 +18,20 @@ public class Crossbow : MonoBehaviour
     {
         while (true)
         {
-  
             animator.SetTrigger("Shoot");
-            yield return new WaitForSeconds(1f);  // Intervalle entre chaque animation
+            // Attendre que l'animation atteigne le point où la flèche doit être tirée
+            yield return new WaitForSeconds(0.5f); // Ajustez en fonction du timing de votre animation
+            FireArrow();
+            yield return new WaitForSeconds(0.5f); // Ajustez pour correspondre à l'intervalle de tir souhaité
         }
     }
 
     public void FireArrow()
     {
-        // Instancier la fl�che au firePoint
-        GameObject arrow = Instantiate(arrowPrefab, firePoint.position, firePoint.rotation);
+        // Calculer l'angle entre la direction de la flèche et l'axe X positif
+        float angle = Mathf.Atan2(arrowDirection.y, arrowDirection.x) * Mathf.Rad2Deg - 90f;
 
-        // Configurer la direction de la fl�che
-        Arrow arrowScript = arrow.GetComponent<Arrow>();
-        arrowScript.direction = arrowDirection;
+        // Instancier la flèche avec la rotation correcte
+        GameObject arrow = Instantiate(arrowPrefab, firePoint.position, Quaternion.Euler(0, 0, angle));
     }
 }
