@@ -1,6 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro; // Importer TextMeshPro
 using SocketIOClient;
+using System.Collections;
+using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 public class RockPaperScissors : MonoBehaviour
 {
@@ -15,6 +19,8 @@ public class RockPaperScissors : MonoBehaviour
     private SocketIOUnity clientSocket;
     public GameObject canvas;
 
+    public TextMeshProUGUI resultsText; // Utiliser TextMeshProUGUI
+
     private Choice savedChoice = Choice.None;
 
     void Start()
@@ -24,6 +30,28 @@ public class RockPaperScissors : MonoBehaviour
         rockButton.onClick.AddListener(() => OnPlayerChoice(Choice.Rock));
         paperButton.onClick.AddListener(() => OnPlayerChoice(Choice.Paper));
         scissorsButton.onClick.AddListener(() => OnPlayerChoice(Choice.Scissors));
+    }
+
+    void Update()
+    {
+        clientSocket.On("rps:results", response =>
+        {
+            Debug.Log("Results received!");
+
+            JArray jsonResponse = JArray.Parse(response.ToString());
+
+            foreach (var result in jsonResponse)
+            {
+                Debug.Log("Result: " + result);
+                Debug.Log("Result type: " + result.GetType());
+                Debug.Log("Result type: " + result["result"]);
+
+                resultsText.text = result["result"].ToString();
+            }
+
+            Debug.Log("jsonResponse: " + jsonResponse);
+            // resultsText.text = jsonResponse["result"].ToString();
+        });
     }
 
     void OnPlayerChoice(Choice choice)
@@ -41,7 +69,12 @@ public class RockPaperScissors : MonoBehaviour
 
     async void SendChoiceToBackend()
     {
-        await clientSocket.EmitAsync("game:rockpaperscissors", FormatChoice(GetSavedChoice()));
+        var data = new Dictionary<string, string>
+        {
+            { "move", FormatChoice(playerChoice) }
+        };
+
+        await clientSocket.EmitAsync("rps:select", data);
     }
 
     string FormatChoice(Choice choice)
