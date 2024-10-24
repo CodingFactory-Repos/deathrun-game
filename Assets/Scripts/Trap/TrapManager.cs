@@ -17,6 +17,7 @@ public class TrapManager : MonoBehaviour
     private Queue<TrapPlacement> placementQueue = new Queue<TrapPlacement>();
     private SocketIOUnity clientSocket; // SocketIO client
 
+    private string socketUrl;
 
     async void Start()
     {
