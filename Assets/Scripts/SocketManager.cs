@@ -30,9 +30,8 @@ public class SocketManager : MonoBehaviour
         try
         {
             env.TryParseEnvironmentVariable("SOCKET_URL", out string socketUrl);
-            var uri = new Uri("https://macbook-pro-de-guillaume.loule.me/");
+            var uri = new Uri("socketUrl");
             ClientSocket = new SocketIOUnity(uri);
-
             // Connect to the server
             await ClientSocket.ConnectAsync();
             Debug.Log("Connected to backend via SocketManager.");
