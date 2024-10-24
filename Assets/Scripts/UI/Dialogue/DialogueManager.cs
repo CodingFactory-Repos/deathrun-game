@@ -93,7 +93,7 @@ namespace DialogueSystem
         {
             messageQueue.Enqueue(new GodMessage(godSprite, dialogue, title));
         }
-
+        
         private IEnumerator ProcessMessageQueue()
         {
             while (true)
