@@ -155,12 +155,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae92ebd4d5916514996eb568425857d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  godImage: {fileID: 301723508729519991}
   godSprite: {fileID: 21300000, guid: 7b277c8f02a337647888d46b236b7ab9, type: 3}
   dialogueText: {fileID: 228628327914723149}
-  actualDialogue: Guillaume T OU ?
   dialogueTitle: {fileID: 0}
-  actualTitle: 
+  godSprites: []
 --- !u!1 &7377141579387670094
 GameObject:
   m_ObjectHideFlags: 0

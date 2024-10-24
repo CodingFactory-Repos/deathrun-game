@@ -11,7 +11,7 @@ public class TrapManager : MonoBehaviour
     public List<GameObject> trapPrefabs = new List<GameObject>();
     private Dictionary<string, GameObject> trapPrefabDictionary = new Dictionary<string, GameObject>();
     private int gridSizeX = 9;
-    private int gridSizeY = 9;
+    private int gridSizeY = 23;
     private string[,] grid;
 
     private Queue<TrapPlacement> placementQueue = new Queue<TrapPlacement>();
@@ -28,10 +28,10 @@ public class TrapManager : MonoBehaviour
         trapPrefabDictionary.Add("crossbow_down_prefab", trapPrefabs[0]);
         trapPrefabDictionary.Add("crossbow_up_prefab", trapPrefabs[1]);
         trapPrefabDictionary.Add("crossbow_side_prefab", trapPrefabs[2]);
+        trapPrefabDictionary.Add("bear_trap", trapPrefabs[3]);
 
         clientSocket = SocketManager.Instance.ClientSocket;
 
-        // Start processing the placement queue
         StartCoroutine(ProcessPlacementQueue());
 
         await clientSocket.EmitAsync("traps:reload");
@@ -91,7 +91,7 @@ public class TrapManager : MonoBehaviour
                 {
 
                     // Instantiate the prefab at the calculated position
-                    Vector3 spawnPosition = new Vector3(x, y, 0);
+                    Vector3 spawnPosition = new Vector3(x + 0.5f, y - 0.25f, 0);
                     GameObject spawnedTrap = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
 
                     // Mark the grid spot as occupied
