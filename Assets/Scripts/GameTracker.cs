@@ -48,7 +48,7 @@ public class GameTracker : MonoBehaviour
         stageText.text = "Stage: " + stageCounter;
     }
 
-  
+
     public void SpawnCorridorEvents()
     {
         altarSpawnPoint = GameObject.Find("AltarSpawnPoint")?.transform;
@@ -56,9 +56,11 @@ public class GameTracker : MonoBehaviour
 
         if (blacksmithSpawnPoint == null || altarSpawnPoint == null)
         {
-          
-            return;  
+
+            return;
         }
+
+
 
         // Apparition du forgeron au stage 5
         if (stageCounter >= 5 && blacksmithPrefab != null)
@@ -75,7 +77,7 @@ public class GameTracker : MonoBehaviour
             Altar altarScript = currentAltar.GetComponent<Altar>();
             if (altarScript != null)
             {
-                altarScript.ResetItems();  
+                altarScript.ResetItems();
             }
         }
     }
@@ -84,13 +86,13 @@ public class GameTracker : MonoBehaviour
     {
         if (currentBlacksmith != null)
         {
-            Destroy(currentBlacksmith);  
+            Destroy(currentBlacksmith);
             currentBlacksmith = null;
         }
 
         if (currentAltar != null)
         {
-            Destroy(currentAltar);  
+            Destroy(currentAltar);
             currentAltar = null;
         }
     }
