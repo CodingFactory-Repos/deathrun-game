@@ -27,8 +27,9 @@ public class TrapManager : MonoBehaviour
         // Map trap names to their prefabs
         trapPrefabDictionary.Add("crossbow_down_prefab", trapPrefabs[0]);
         trapPrefabDictionary.Add("crossbow_up_prefab", trapPrefabs[1]);
-        trapPrefabDictionary.Add("crossbow_side_prefab", trapPrefabs[2]);
-        trapPrefabDictionary.Add("bear_trap", trapPrefabs[3]);
+        trapPrefabDictionary.Add("crossbow_side_left_prefab", trapPrefabs[2]);
+        trapPrefabDictionary.Add("crossbow_side_right_prefab", trapPrefabs[3]);
+        trapPrefabDictionary.Add("bear_trap", trapPrefabs[4]);
 
         clientSocket = SocketManager.Instance.ClientSocket;
 
