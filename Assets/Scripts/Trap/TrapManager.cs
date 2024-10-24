@@ -11,7 +11,7 @@ public class TrapManager : MonoBehaviour
     public List<GameObject> trapPrefabs = new List<GameObject>();
     private Dictionary<string, GameObject> trapPrefabDictionary = new Dictionary<string, GameObject>();
     private int gridSizeX = 9;
-    private int gridSizeY = 9;
+    private int gridSizeY = 23;
     private string[,] grid;
 
     private Queue<TrapPlacement> placementQueue = new Queue<TrapPlacement>();
@@ -19,7 +19,7 @@ public class TrapManager : MonoBehaviour
 
     private string socketUrl;
 
-    void Start()
+    async void Start()
     {
         // Initialize the grid
         grid = new string[gridSizeX, gridSizeY];
@@ -27,16 +27,20 @@ public class TrapManager : MonoBehaviour
         // Map trap names to their prefabs
         trapPrefabDictionary.Add("crossbow_down_prefab", trapPrefabs[0]);
         trapPrefabDictionary.Add("crossbow_up_prefab", trapPrefabs[1]);
-        trapPrefabDictionary.Add("crossbow_side_prefab", trapPrefabs[2]);
+        trapPrefabDictionary.Add("crossbow_side_left_prefab", trapPrefabs[2]);
+        trapPrefabDictionary.Add("crossbow_side_right_prefab", trapPrefabs[3]);
+        trapPrefabDictionary.Add("bear_trap", trapPrefabs[4]);
 
-        // Set up Socket.IO client
+        clientSocket = SocketManager.Instance.ClientSocket;
+
         StartCoroutine(ProcessPlacementQueue());
+
+        await clientSocket.EmitAsync("traps:reload");
     }
+
 
     public void Update()
     {
-        clientSocket = SocketManager.Instance.ClientSocket;
-
         clientSocket.On("traps:place", response =>
         {
             JArray trapDataArray = JArray.Parse(response.ToString());
@@ -67,6 +71,7 @@ public class TrapManager : MonoBehaviour
             {
                 TrapPlacement placement = placementQueue.Dequeue();
                 SpawnTrapAtPosition(placement.x, placement.y, placement.trapType);
+
             }
 
             yield return null; // Wait for the next frame
@@ -87,7 +92,7 @@ public class TrapManager : MonoBehaviour
                 {
 
                     // Instantiate the prefab at the calculated position
-                    Vector3 spawnPosition = new Vector3(x, y, 0);
+                    Vector3 spawnPosition = new Vector3(x + 0.5f, y - 0.25f, 0);
                     GameObject spawnedTrap = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
 
                     // Mark the grid spot as occupied
