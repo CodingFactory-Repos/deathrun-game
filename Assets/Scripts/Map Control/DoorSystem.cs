@@ -9,11 +9,12 @@ public class RoomManager : MonoBehaviour
     private GameObject currentRoom;
 
     private GameTracker gameTracker;
-    private SocketIOUnity clientSocket; // SocketIO client
+    private SocketIOUnity clientSocket;
     public static bool isInCorridorX7 = false;
 
     private void Start()
     {
+        clientSocket = SocketManager.Instance.ClientSocket;
 
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject != null)
@@ -64,8 +65,9 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    async void SocketEmitter(){
-            await clientSocket.EmitAsync("rooms:corridor");
+    async void SocketEmitter()
+    {
+        await clientSocket.EmitAsync("rooms:corridor");
     }
 
     void PlacePlayerInNewRoom(GameObject newRoom)
