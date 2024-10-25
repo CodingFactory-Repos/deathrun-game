@@ -37,7 +37,7 @@ public class WaitingTrapper : MonoBehaviour
     {
         clientSocket.On("trapper:join", _ => OnTrapperJoin());
         clientSocket.On("rooms:start", _ => OnStartGame());
-        clientSocket.On("rooms:create", response => OnRoomCreate(response));
+        clientSocket.On("rooms:code", response => OnRoomCreate(response));
     }
 
     private void OnStartGame()
