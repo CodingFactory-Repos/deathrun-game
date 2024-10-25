@@ -2245,6 +2245,10 @@ PrefabInstance:
       propertyPath: newRoomPrefab
       value: 
       objectReference: {fileID: 6459706332820108789, guid: 35bed5d2a54129845bcff6b3abaa746b, type: 3}
+    - target: {fileID: 6515928562466559834, guid: 7c74a234ff40ec9449b23765de7189b9, type: 3}
+      propertyPath: m_TagString
+      value: SpawnPoint
+      objectReference: {fileID: 0}
     - target: {fileID: 6885118029593512627, guid: 7c74a234ff40ec9449b23765de7189b9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.5
@@ -2288,6 +2292,10 @@ PrefabInstance:
     - target: {fileID: 8481200938870355337, guid: 7c74a234ff40ec9449b23765de7189b9, type: 3}
       propertyPath: m_Name
       value: Door
+      objectReference: {fileID: 0}
+    - target: {fileID: 8481200938870355337, guid: 7c74a234ff40ec9449b23765de7189b9, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

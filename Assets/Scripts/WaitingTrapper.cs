@@ -26,8 +26,11 @@ public class WaitingTrapper : MonoBehaviour
     private bool gameStart = false;
     private bool messageSet = false;
 
+    public GameObject spawnOfPoint;
+
     void Start()
     {
+       
         clientSocket = SocketManager.Instance.ClientSocket;
         CreateOverlay();
         RegisterSocketEvents();
@@ -43,7 +46,6 @@ public class WaitingTrapper : MonoBehaviour
     private void OnStartGame()
     {
         gameStart = true;
-        ResumePlayerMovement();
         unlockDoor();
     }
 
@@ -56,35 +58,32 @@ public class WaitingTrapper : MonoBehaviour
 
     private void OnRoomCreate(SocketIOResponse response)
     {
-        lockDoor();
         JArray roomDataArray = JArray.Parse(response.ToString());
         roomCode = roomDataArray[0]["code"].Value<string>();
-
         if (!string.IsNullOrEmpty(roomCode))
         {
             codeChanged = true;
         }
+        lockDoor();
+
     }
 
     private void lockDoor()
     {
-        Debug.Log("Locking door...");
-        GameObject spawnOfPoint = GameObject.FindWithTag("SpawnPoint");
         if (spawnOfPoint == null)
         {
             Debug.LogError("Spawn point not found!");
             return;
         }
         spawnOfPoint.GetComponent<BoxCollider2D>().enabled = false;
-        Debug.Log("Door locked");
-        Debug.Log(spawnOfPoint.GetComponent<BoxCollider2D>().enabled);
     }
 
 
     private void unlockDoor()
     {
-        GameObject spawnOfPoint = GameObject.FindWithTag("SpawnPoint");
         spawnOfPoint.GetComponent<BoxCollider2D>().enabled = true;
+        Destroy(overlay.transform.parent.gameObject);
+        Destroy(this);
     }
 
     private void CopyRoomCodeToClipboard()
@@ -161,8 +160,7 @@ public class WaitingTrapper : MonoBehaviour
         {
             playerMovement.enabled = true;
         }
-        Destroy(overlay.transform.parent.gameObject);
-        Destroy(this);
+
     }
 
     private IEnumerator StartCountdown(int countdownTime)
@@ -173,18 +171,21 @@ public class WaitingTrapper : MonoBehaviour
             yield return new WaitForSecondsRealtime(1);
             countdownTime--;
         }
-        ResumePlayerMovement();
+        unlockDoor();
     }
 
     void Update()
     {
+        spawnOfPoint = GameObject.FindGameObjectWithTag("SpawnPoint");
         if (gameStart)
         {
             gameStart = false;
             coroutineStarted = true;
             StartCoroutine(StartCountdown(5)); // Start countdown for traps
         }
-
+        if ( spawnOfPoint == GameObject.FindGameObjectWithTag("SpawnPoint") && !coroutineStarted){
+            lockDoor();
+        }
         if (gamePaused && !coroutineStarted && !messageSet)
         {
             messageText.text = trapperJoined ? "Waiting for the game to start..." : "Waiting for trappers to join...";
