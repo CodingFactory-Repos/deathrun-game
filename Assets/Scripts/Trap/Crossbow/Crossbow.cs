@@ -18,11 +18,8 @@ public class Crossbow : MonoBehaviour
     {
         while (true)
         {
+            yield return new WaitForSeconds(1f); // Ajustez pour correspondre à l'intervalle de tir souhaité
             animator.SetTrigger("Shoot");
-            // Attendre que l'animation atteigne le point où la flèche doit être tirée
-            yield return new WaitForSeconds(0.5f); // Ajustez en fonction du timing de votre animation
-            FireArrow();
-            yield return new WaitForSeconds(0.5f); // Ajustez pour correspondre à l'intervalle de tir souhaité
         }
     }
 
