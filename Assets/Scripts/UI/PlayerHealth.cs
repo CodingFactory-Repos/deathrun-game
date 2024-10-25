@@ -60,9 +60,11 @@ public class PlayerHealth : MonoBehaviour
 
     void Die()
     {
-        SocketEmitter();
-        if (deadCanvas != null)
+      
+        if (deadCanvas != null && !deadCanvas.activeSelf)
         {
+            UnityEngine.Debug.Log("COUCOU");
+            SocketEmitter(); // Appelle l'émetteur seulement si le canvas est inactif
             deadCanvas.SetActive(true);
         }
         GetComponent<PlayerMovement>().enabled = false;

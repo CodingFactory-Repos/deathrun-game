@@ -114,13 +114,6 @@ public class TrapManager : MonoBehaviour
         }
     }
 
-    void OnApplicationQuit()
-    {
-        if (clientSocket != null)
-        {
-            clientSocket.Dispose(); // Properly close the connection
-        }
-    }
 
     private class TrapPlacement
     {
