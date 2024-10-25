@@ -13,10 +13,14 @@ public class PlayerHealth : MonoBehaviour
     public Transform healthBar;  
     private List<GameObject> hearts = new List<GameObject>();
 
+    
+    private SocketIOUnity clientSocket;
+
     public GameObject deadCanvas;
 
     void Start()
     {
+        clientSocket = SocketManager.Instance.ClientSocket;
         currentHealth = maxHealth;
         UpdateHealthBar();
 
@@ -48,8 +52,14 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthBar();
     }
 
+    private async void SocketEmitter()
+    {
+        await clientSocket.EmitAsync("rooms:end");
+    }
+
     void Die()
     {
+        SocketEmitter();
         if (deadCanvas != null)
         {
             deadCanvas.SetActive(true);

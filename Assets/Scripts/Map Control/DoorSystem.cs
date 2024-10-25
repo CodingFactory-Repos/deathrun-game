@@ -65,7 +65,7 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    async void SocketEmitter()
+    private async void SocketEmitter()
     {
         await clientSocket.EmitAsync("rooms:corridor");
     }
