@@ -49,7 +49,6 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
-        }
         UpdateHealthBar();
     }
 
@@ -60,15 +59,14 @@ public class PlayerHealth : MonoBehaviour
 
     void Die()
     {
-        SocketEmitter();
-        if (deadCanvas != null)
+      
+        if (deadCanvas != null && !deadCanvas.activeSelf)
         {
+            SocketEmitter();
             deadCanvas.SetActive(true);
         }
         GetComponent<PlayerMovement>().enabled = false;
     }
-
-
     void UpdateHealthBar()
     {
        
@@ -82,7 +80,7 @@ public class PlayerHealth : MonoBehaviour
         for (int i = 0; i < currentHealth; i++)
         {
             GameObject newHeart = Instantiate(heartPrefab, healthBar);
-            hearts.Add(newHeart);  // Ajouter le c�ur � la liste pour le traquer
+            hearts.Add(newHeart);
         }
     }
 

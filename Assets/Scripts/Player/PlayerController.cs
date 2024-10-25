@@ -2,6 +2,8 @@ using System;
 using UnityEngine;
 using SocketIOClient;
 using CandyCoded.env;
+using System.IO;
+using System.Collections.Generic;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -28,6 +30,32 @@ public class PlayerMovement : MonoBehaviour
 	public Vector2 maxCameraPosition;
 	private string socketUrl;
 
+	private void LoadEnvVariables()
+    {
+        string envFilePath = Path.Combine(Application.dataPath, ".env");
+
+        if (File.Exists(envFilePath))
+        {
+            foreach (var line in File.ReadAllLines(envFilePath))
+            {
+                if (!string.IsNullOrWhiteSpace(line) && !line.StartsWith("#"))
+                {
+                    var keyValue = line.Split('=');
+                    if (keyValue.Length == 2)
+                    {
+                        var key = keyValue[0].Trim();
+                        var value = keyValue[1].Trim();
+                        Environment.SetEnvironmentVariable(key, value);
+                    }
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError(".env file not found at " + envFilePath);
+        }
+    }
+
 	async void Start()
 	{
 		player = GetComponent<Player>();
@@ -53,6 +81,21 @@ public class PlayerMovement : MonoBehaviour
 			cameraWidth = cameraHeight * mainCamera.aspect;
 		}
 
+		try
+		{
+			LoadEnvVariables();
+			var socketUrl = Environment.GetEnvironmentVariable("SOCKET_URL");
+            var uri = new Uri(socketUrl);
+			clientSocket = SocketManager.Instance.ClientSocket;
+			if (clientSocket == null)
+			{
+				Debug.LogError("SocketIO client is null! Check SocketManager initialization.");
+			}
+		}
+		catch (Exception e)
+		{
+			Debug.LogError("Socket connection error: " + e.Message);
+		}
 		try
 		{
 			env.TryParseEnvironmentVariable("SOCKET_URL", out string socketUrl);
@@ -165,10 +208,11 @@ public class PlayerMovement : MonoBehaviour
 			{
 				await clientSocket.EmitAsync(channel, data);
 			}
+
 		}
 		catch (Exception e)
 		{
-			Debug.LogError("Socket send error: " + e.Message);
+			UnityEngine.Debug.LogError("Socket send error: " + e.Message);
 		}
 	}
 

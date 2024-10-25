@@ -697,6 +697,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 8096972002182311090, guid: 35bed5d2a54129845bcff6b3abaa746b, type: 3}
+      propertyPath: trapPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 411694592779797494, guid: d7c2a5ac1f23afe428f872343ed56d71, type: 3}
     - target: {fileID: 8327367539400217474, guid: 35bed5d2a54129845bcff6b3abaa746b, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -896,6 +900,10 @@ PrefabInstance:
     - target: {fileID: 588703733079249260, guid: b95a2840877394746b9c857ec618031d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3966805182529176642, guid: b95a2840877394746b9c857ec618031d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4190906850344886629, guid: b95a2840877394746b9c857ec618031d, type: 3}
       propertyPath: m_Name
