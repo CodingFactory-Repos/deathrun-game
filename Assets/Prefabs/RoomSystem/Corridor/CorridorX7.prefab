@@ -1286,7 +1286,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1791178601
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -1341,7 +1341,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3022020511561805294}
-  - component: {fileID: 1349095506272017240}
   m_Layer: 0
   m_Name: CorridorX7
   m_TagString: Map
@@ -1369,18 +1368,6 @@ Transform:
   - {fileID: 417082257302647601}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1349095506272017240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6369746937129949933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9880ea29492da44c995f334244a5d19e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7452483412117750499
 GameObject:
   m_ObjectHideFlags: 0

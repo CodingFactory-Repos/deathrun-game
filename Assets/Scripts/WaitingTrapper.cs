@@ -23,18 +23,26 @@ public class WaitingTrapper : MonoBehaviour
     private bool codeChanged = false;
     private bool coroutineStarted = false;
 
+    private bool gameStart = false;
+
     void Start()
     {
         clientSocket = SocketManager.Instance.ClientSocket;
         CreateOverlay();
-        BlockPlayerMovement();
         RegisterSocketEvents();
     }
 
     private void RegisterSocketEvents()
     {
         clientSocket.On("trapper:join", _ => OnTrapperJoin());
+        clientSocket.On("rooms:start", _ => OnStartGame());
         clientSocket.On("rooms:create", response => OnRoomCreate(response));
+    }
+
+    private void OnStartGame()
+    {
+        gameStart = true;
+        ResumePlayerMovement();
     }
 
     private void OnTrapperJoin()
@@ -122,15 +130,6 @@ public class WaitingTrapper : MonoBehaviour
         return textComponent;
     }
 
-    private void BlockPlayerMovement()
-    {
-        gamePaused = true;
-        if (playerMovement != null)
-        {
-            playerMovement.enabled = false;
-        }
-    }
-
     private void ResumePlayerMovement()
     {
         gamePaused = false;
@@ -146,8 +145,7 @@ public class WaitingTrapper : MonoBehaviour
     {
         while (countdownTime > 0)
         {
-            Debug.Log("Countdown: " + countdownTime);
-            messageText.text = $"Trapper joined! Time to place traps: {countdownTime}s";
+            messageText.text = $"Game Started ! Time to place traps: {countdownTime}s";
             yield return new WaitForSecondsRealtime(1);
             countdownTime--;
         }
@@ -156,16 +154,22 @@ public class WaitingTrapper : MonoBehaviour
 
     void Update()
     {
-        if (trapperJoined)
+        if (gameStart)
         {
-            trapperJoined = false; // Reset the flag
+            gameStart = false;
             coroutineStarted = true;
             StartCoroutine(StartCountdown(5)); // Start countdown for traps
         }
 
+        if (trapperJoined && gamePaused && !coroutineStarted)
+        {
+            trapperJoined = false;
+            messageText.text = "Waiting for the game to start...";
+        }
+
         if (gamePaused && !coroutineStarted)
         {
-            messageText.text = "Waiting for trapper to join...";
+            messageText.text = "Waiting for trappers to join...";
         }
 
         if (codeChanged)
