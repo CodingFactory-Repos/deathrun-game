@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: crossbow_up_8
+      name: crossbow_up_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 1
         y: 0
-        width: 16
-        height: 16
+        width: 13
+        height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: be640116960274848ab6a6c0d30946b0
-      internalID: 1117881491
+      spriteID: ce495174efcfb8b4fa1ebcbe50a20f4f
+      internalID: 687030705
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: crossbow_up_9
+      name: crossbow_up_1
       rect:
         serializedVersion: 2
-        x: 16
+        x: 17
         y: 0
-        width: 16
-        height: 16
+        width: 13
+        height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d9385c81f428ae644b69ea875a9d9eeb
-      internalID: 868307239
+      spriteID: 7e9bf22cde861f947a37d8ea6858af3c
+      internalID: 1191971766
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: crossbow_up_10
+      name: crossbow_up_2
       rect:
         serializedVersion: 2
-        x: 32
+        x: 33
         y: 0
-        width: 16
-        height: 16
+        width: 13
+        height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bea4507efc3cc1f42b133d181c7fcd31
-      internalID: -348969557
+      spriteID: cb2564c34ac5c9b4c940dda51f5e0ee8
+      internalID: 2124873194
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: crossbow_up_11
+      name: crossbow_up_3
       rect:
         serializedVersion: 2
         x: 48
         y: 0
-        width: 16
-        height: 16
+        width: 15
+        height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aa2049fede4aa874eac00ef384971ed5
-      internalID: 795175297
+      spriteID: 8d6120cc40b4ac449b40238a2623cd63
+      internalID: 940453666
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: crossbow_up_12
+      name: crossbow_up_4
       rect:
         serializedVersion: 2
-        x: 64
+        x: 65
         y: 0
-        width: 16
-        height: 16
+        width: 13
+        height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,20 +208,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f9c3ffca6c59fae44b224e7e6690da74
-      internalID: -1705987641
+      spriteID: 1d3e42f1e05da8d4abaa5d80c4f0678c
+      internalID: -1583830644
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: crossbow_up_13
+      name: crossbow_up_5
       rect:
         serializedVersion: 2
-        x: 80
+        x: 81
         y: 0
-        width: 16
-        height: 16
+        width: 13
+        height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -229,20 +229,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 571e30f9087c3e1448b1be72d15ca8e1
-      internalID: -334216072
+      spriteID: 1794afcb4385844428fc8c522f4e7179
+      internalID: 1424304353
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: crossbow_up_14
+      name: crossbow_up_6
       rect:
         serializedVersion: 2
-        x: 96
+        x: 97
         y: 0
-        width: 16
-        height: 16
+        width: 13
+        height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -250,20 +250,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3c2480885b34d19438f1014ca0c40576
-      internalID: -1143012705
+      spriteID: 0821208cb21d34c489860d7a8e2d16ed
+      internalID: -1761479462
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: crossbow_up_15
+      name: crossbow_up_7
       rect:
         serializedVersion: 2
-        x: 112
+        x: 113
         y: 0
-        width: 16
-        height: 16
+        width: 13
+        height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -271,8 +271,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a8a368743e5579c4ca49b0f09c85d515
-      internalID: -1560516348
+      spriteID: c7fc2d4e6425dd74e94d6dc011fa5229
+      internalID: -1345345027
       vertices: []
       indices: 
       edges: []
@@ -290,20 +290,12 @@ TextureImporter:
     nameFileIdTable:
       crossbow_up_0: 687030705
       crossbow_up_1: 1191971766
-      crossbow_up_10: -348969557
-      crossbow_up_11: 795175297
-      crossbow_up_12: -1705987641
-      crossbow_up_13: -334216072
-      crossbow_up_14: -1143012705
-      crossbow_up_15: -1560516348
       crossbow_up_2: 2124873194
       crossbow_up_3: 940453666
       crossbow_up_4: -1583830644
       crossbow_up_5: 1424304353
       crossbow_up_6: -1761479462
       crossbow_up_7: -1345345027
-      crossbow_up_8: 1117881491
-      crossbow_up_9: 868307239
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
