@@ -49,7 +49,6 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
-        }
         UpdateHealthBar();
     }
 
@@ -63,14 +62,11 @@ public class PlayerHealth : MonoBehaviour
       
         if (deadCanvas != null && !deadCanvas.activeSelf)
         {
-            UnityEngine.Debug.Log("COUCOU");
-            SocketEmitter(); // Appelle l'émetteur seulement si le canvas est inactif
+            SocketEmitter();
             deadCanvas.SetActive(true);
         }
         GetComponent<PlayerMovement>().enabled = false;
     }
-
-
     void UpdateHealthBar()
     {
        
@@ -84,7 +80,7 @@ public class PlayerHealth : MonoBehaviour
         for (int i = 0; i < currentHealth; i++)
         {
             GameObject newHeart = Instantiate(heartPrefab, healthBar);
-            hearts.Add(newHeart);  // Ajouter le c�ur � la liste pour le traquer
+            hearts.Add(newHeart);
         }
     }
 
