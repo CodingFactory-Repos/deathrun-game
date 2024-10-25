@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;  
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -10,12 +11,16 @@ public class PlayerHealth : MonoBehaviour
 
     public GameObject heartPrefab;  
     public Transform healthBar;  
-    private List<GameObject> hearts = new List<GameObject>(); 
+    private List<GameObject> hearts = new List<GameObject>();
+
+    public GameObject deadCanvas;
 
     void Start()
     {
-        currentHealth = maxHealth;  
-        UpdateHealthBar(); 
+        currentHealth = maxHealth;
+        UpdateHealthBar();
+
+        if (deadCanvas != null) deadCanvas.SetActive(false);
     }
 
 
@@ -24,9 +29,13 @@ public class PlayerHealth : MonoBehaviour
         currentHealth -= amount;
         if (currentHealth < 0)
         {
-            currentHealth = 0;  
+            currentHealth = 0;
         }
-        UpdateHealthBar();  
+        UpdateHealthBar();
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
     }
 
     public void Heal(int amount)
@@ -34,12 +43,21 @@ public class PlayerHealth : MonoBehaviour
         currentHealth += amount;
         if (currentHealth > maxHealth)
         {
-            currentHealth = maxHealth;  
+            currentHealth = maxHealth;
         }
-        UpdateHealthBar();  
+        UpdateHealthBar();
     }
 
-   
+    void Die()
+    {
+        if (deadCanvas != null)
+        {
+            deadCanvas.SetActive(true);
+        }
+        GetComponent<PlayerMovement>().enabled = false;
+    }
+
+
     void UpdateHealthBar()
     {
        
@@ -63,6 +81,13 @@ public class PlayerHealth : MonoBehaviour
         {
             GetComponent<PlayerHealth>().TakeDamage(1);
         }
+    }
+
+      public void ReturnToMenu()
+    {
+        GameObject socket = GameObject.FindWithTag("Temporary");
+        if (socket != null) Destroy(socket.gameObject);
+        SceneManager.LoadScene("Menu");
     }
 
 }
