@@ -44,6 +44,7 @@ public class WaitingTrapper : MonoBehaviour
     {
         gameStart = true;
         ResumePlayerMovement();
+        unlockDoor();
     }
 
     private void OnTrapperJoin()
@@ -55,7 +56,7 @@ public class WaitingTrapper : MonoBehaviour
 
     private void OnRoomCreate(SocketIOResponse response)
     {
-        Debug.Log("Room created!");
+        lockDoor();
         JArray roomDataArray = JArray.Parse(response.ToString());
         roomCode = roomDataArray[0]["code"].Value<string>();
 
@@ -63,6 +64,27 @@ public class WaitingTrapper : MonoBehaviour
         {
             codeChanged = true;
         }
+    }
+
+    private void lockDoor()
+    {
+        Debug.Log("Locking door...");
+        GameObject spawnOfPoint = GameObject.FindWithTag("SpawnPoint");
+        if (spawnOfPoint == null)
+        {
+            Debug.LogError("Spawn point not found!");
+            return;
+        }
+        spawnOfPoint.GetComponent<BoxCollider2D>().enabled = false;
+        Debug.Log("Door locked");
+        Debug.Log(spawnOfPoint.GetComponent<BoxCollider2D>().enabled);
+    }
+
+
+    private void unlockDoor()
+    {
+        GameObject spawnOfPoint = GameObject.FindWithTag("SpawnPoint");
+        spawnOfPoint.GetComponent<BoxCollider2D>().enabled = true;
     }
 
     private void CopyRoomCodeToClipboard()
