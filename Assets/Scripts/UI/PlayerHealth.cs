@@ -20,11 +20,12 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
-        clientSocket = SocketManager.Instance.ClientSocket;
+        
         currentHealth = maxHealth;
         UpdateHealthBar();
 
         if (deadCanvas != null) deadCanvas.SetActive(false);
+        clientSocket = SocketManager.Instance.ClientSocket;
     }
 
 
