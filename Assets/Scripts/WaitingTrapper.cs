@@ -24,6 +24,7 @@ public class WaitingTrapper : MonoBehaviour
     private bool coroutineStarted = false;
 
     private bool gameStart = false;
+    private bool messageSet = false;
 
     void Start()
     {
@@ -49,6 +50,7 @@ public class WaitingTrapper : MonoBehaviour
     {
         Debug.Log("Trapper joined the room!");
         trapperJoined = true;
+        messageSet = false; // Reset flag to update the message
     }
 
     private void OnRoomCreate(SocketIOResponse response)
@@ -161,15 +163,10 @@ public class WaitingTrapper : MonoBehaviour
             StartCoroutine(StartCountdown(5)); // Start countdown for traps
         }
 
-        if (trapperJoined && gamePaused && !coroutineStarted)
+        if (gamePaused && !coroutineStarted && !messageSet)
         {
-            trapperJoined = false;
-            messageText.text = "Waiting for the game to start...";
-        }
-
-        if (gamePaused && !coroutineStarted)
-        {
-            messageText.text = "Waiting for trappers to join...";
+            messageText.text = trapperJoined ? "Waiting for the game to start..." : "Waiting for trappers to join...";
+            messageSet = true;
         }
 
         if (codeChanged)
