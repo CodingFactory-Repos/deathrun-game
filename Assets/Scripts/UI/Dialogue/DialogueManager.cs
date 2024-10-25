@@ -53,6 +53,7 @@ namespace DialogueSystem
         {
             dialogueCanvas = GameObject.FindGameObjectWithTag("Dialogue");
             clientSocket = SocketManager.Instance.ClientSocket;
+            dialogueCanvas.SetActive(false);
 
             godPrefabDictionary.Add("1", new GodInfo(godSprites[0], "Greed"));
             godPrefabDictionary.Add("2", new GodInfo(godSprites[1], "Chaos"));
@@ -115,13 +116,10 @@ namespace DialogueSystem
             }
         }
 
-
+     
         public void DisplayDialogue(Sprite newGodSprite, string newDialogue, string newTitle)
         {
-            if (dialogueCanvas != null)
-            {
-                dialogueCanvas.SetActive(true);
-            }
+            dialogueCanvas.SetActive(true);
 
             if (newGodSprite != null)
             {

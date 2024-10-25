@@ -8,9 +8,12 @@ public class Crossbow : MonoBehaviour
     public Vector3 arrowDirection = Vector3.right;  // Direction de la flèche
     private Animator animator;
 
+    private AudioSource audioSource;
+
     void Start()
     {
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         StartCoroutine(StartShooting());
     }
 
@@ -18,7 +21,9 @@ public class Crossbow : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(1f); // Ajustez pour correspondre à l'intervalle de tir souhaité
+            PlayShootSound();
+            yield return new WaitForSeconds(1f);
+        
             animator.SetTrigger("Shoot");
         }
     }
@@ -30,5 +35,12 @@ public class Crossbow : MonoBehaviour
 
         // Instancier la flèche avec la rotation correcte
         GameObject arrow = Instantiate(arrowPrefab, firePoint.position, Quaternion.Euler(0, 0, angle));
+    }
+
+    private void PlayShootSound()
+    {
+        if (audioSource != null && audioSource.clip != null){
+            audioSource.Play();
+        }
     }
 }
