@@ -49,10 +49,11 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
+        }
         UpdateHealthBar();
     }
 
-    private async void SocketEmitter()
+     async void SocketEmitter()
     {
         await clientSocket.EmitAsync("rooms:end");
     }
@@ -66,7 +67,8 @@ public class PlayerHealth : MonoBehaviour
             deadCanvas.SetActive(true);
         }
         GetComponent<PlayerMovement>().enabled = false;
-    }
+    }       
+
     void UpdateHealthBar()
     {
        
