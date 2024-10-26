@@ -4,14 +4,14 @@ using SocketIOClient;
 
 public class RenderCameraCapture : MonoBehaviour
 {
-    public Camera renderCamera; 
-    public Camera mainCamera; 
+    public Camera renderCamera;
+    public Camera mainCamera;
     private RenderTexture renderTexture;
     private Texture2D texture;
     private float timeSinceLastCapture = 0f;
-    private float captureInterval = 0.1f; 
+    private float captureInterval = 0.1f;
 
-    static ulong frameIndex = 0; 
+    static ulong frameIndex = 0;
     private SocketIO socket;
 
     async void Start()
@@ -22,8 +22,7 @@ public class RenderCameraCapture : MonoBehaviour
         renderTexture = new RenderTexture(width, height, 24);
         renderCamera.targetTexture = renderTexture;
         texture = new Texture2D(width, height, TextureFormat.RGB24, false);
-        socket = GUillaumeMetLeSocketStp
-        await socket.ConnectAsync();
+        socket = SocketManager.Instance.ClientSocket;
     }
 
     void Update()
@@ -45,7 +44,7 @@ public class RenderCameraCapture : MonoBehaviour
             renderCamera.Render();
             texture.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
             texture.Apply();
-            RenderTexture.active = null; 
+            RenderTexture.active = null;
 
             SendFrameToSocketIO();
         }
@@ -55,9 +54,10 @@ public class RenderCameraCapture : MonoBehaviour
     {
         if (socket != null && socket.Connected)
         {
-            byte[] imageBytes = texture.EncodeToJPG(); 
+            Debug.Log("Sending frame " + frameIndex);
+            byte[] imageBytes = texture.EncodeToJPG();
             string base64Image = System.Convert.ToBase64String(imageBytes);
-            await socket.EmitAsync("frame", base64Image);
+            await socket.EmitAsync("camera:request", base64Image);
         }
     }
 
