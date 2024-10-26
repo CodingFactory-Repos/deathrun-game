@@ -12,6 +12,8 @@ public class RoomManager : MonoBehaviour
     private SocketIOUnity clientSocket;
     public static bool isInCorridorX7 = false;
 
+    private bool isGameCreated = false;
+
     private void Start()
     {
         clientSocket = SocketManager.Instance.ClientSocket;
@@ -56,6 +58,12 @@ public class RoomManager : MonoBehaviour
             }
             if (newRoom.name.Contains("CorridorX7"))
             {
+                if (!isGameCreated)
+                {
+                    isGameCreated = true;
+                    clientSocket.Emit("rooms:create");
+                }
+
                 gameTracker.SpawnCorridorEvents();
                 gameTracker.NextStage();
                 isInCorridorX7 = true;

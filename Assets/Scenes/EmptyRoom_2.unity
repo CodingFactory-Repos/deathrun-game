@@ -170,6 +170,7 @@ MonoBehaviour:
   stageText: {fileID: 1219144881}
   blacksmithPrefab: {fileID: 181369798890271941, guid: e4326c266f4d3fc4482daabdf57ea4f3, type: 3}
   altarPrefab: {fileID: 4671168421616932687, guid: 52d0b7df8b3db394988157e997abbc1f, type: 3}
+  waitingRoomPrefab: {fileID: 6577988205983815687, guid: 56b8e144977b94114b4eb95ac32bfe84, type: 3}
 --- !u!1001 &1122242796
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -178,6 +179,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1151693853599494121, guid: a29b258ccf5dc90498df6e925ee2a3e5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4239213568335062079, guid: a29b258ccf5dc90498df6e925ee2a3e5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 503.8351

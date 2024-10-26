@@ -23,36 +23,67 @@ public class WaitingTrapper : MonoBehaviour
     private bool codeChanged = false;
     private bool coroutineStarted = false;
 
+    private bool gameStart = false;
+    private bool messageSet = false;
+
+    public GameObject spawnOfPoint;
+
     void Start()
     {
+       
         clientSocket = SocketManager.Instance.ClientSocket;
         CreateOverlay();
-        BlockPlayerMovement();
         RegisterSocketEvents();
     }
 
     private void RegisterSocketEvents()
     {
         clientSocket.On("trapper:join", _ => OnTrapperJoin());
-        clientSocket.On("rooms:create", response => OnRoomCreate(response));
+        clientSocket.On("rooms:start", _ => OnStartGame());
+        clientSocket.On("rooms:code", response => OnRoomCreate(response));
+    }
+
+    private void OnStartGame()
+    {
+        gameStart = true;
+        unlockDoor();
     }
 
     private void OnTrapperJoin()
     {
         Debug.Log("Trapper joined the room!");
         trapperJoined = true;
+        messageSet = false; // Reset flag to update the message
     }
 
     private void OnRoomCreate(SocketIOResponse response)
     {
-        Debug.Log("Room created!");
         JArray roomDataArray = JArray.Parse(response.ToString());
         roomCode = roomDataArray[0]["code"].Value<string>();
-
         if (!string.IsNullOrEmpty(roomCode))
         {
             codeChanged = true;
         }
+        lockDoor();
+
+    }
+
+    private void lockDoor()
+    {
+        if (spawnOfPoint == null)
+        {
+            Debug.LogError("Spawn point not found!");
+            return;
+        }
+        spawnOfPoint.GetComponent<BoxCollider2D>().enabled = false;
+    }
+
+
+    private void unlockDoor()
+    {
+        spawnOfPoint.GetComponent<BoxCollider2D>().enabled = true;
+        Destroy(overlay.transform.parent.gameObject);
+        Destroy(this);
     }
 
     private void CopyRoomCodeToClipboard()
@@ -122,15 +153,6 @@ public class WaitingTrapper : MonoBehaviour
         return textComponent;
     }
 
-    private void BlockPlayerMovement()
-    {
-        gamePaused = true;
-        if (playerMovement != null)
-        {
-            playerMovement.enabled = false;
-        }
-    }
-
     private void ResumePlayerMovement()
     {
         gamePaused = false;
@@ -138,34 +160,36 @@ public class WaitingTrapper : MonoBehaviour
         {
             playerMovement.enabled = true;
         }
-        Destroy(overlay.transform.parent.gameObject);
-        Destroy(this);
+
     }
 
     private IEnumerator StartCountdown(int countdownTime)
     {
         while (countdownTime > 0)
         {
-            Debug.Log("Countdown: " + countdownTime);
-            messageText.text = $"Trapper joined! Time to place traps: {countdownTime}s";
+            messageText.text = $"Game Started ! Time to place traps: {countdownTime}s";
             yield return new WaitForSecondsRealtime(1);
             countdownTime--;
         }
-        ResumePlayerMovement();
+        unlockDoor();
     }
 
     void Update()
     {
-        if (trapperJoined)
+        spawnOfPoint = GameObject.FindGameObjectWithTag("SpawnPoint");
+        if (gameStart)
         {
-            trapperJoined = false; // Reset the flag
+            gameStart = false;
             coroutineStarted = true;
             StartCoroutine(StartCountdown(5)); // Start countdown for traps
         }
-
-        if (gamePaused && !coroutineStarted)
+        if ( spawnOfPoint == GameObject.FindGameObjectWithTag("SpawnPoint") && !coroutineStarted){
+            lockDoor();
+        }
+        if (gamePaused && !coroutineStarted && !messageSet)
         {
-            messageText.text = "Waiting for trapper to join...";
+            messageText.text = trapperJoined ? "Waiting for the game to start..." : "Waiting for trappers to join...";
+            messageSet = true;
         }
 
         if (codeChanged)

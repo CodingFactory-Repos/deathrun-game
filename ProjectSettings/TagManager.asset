@@ -11,6 +11,7 @@ TagManager:
   - Props
   - Dialogue
   - Temporary
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX
