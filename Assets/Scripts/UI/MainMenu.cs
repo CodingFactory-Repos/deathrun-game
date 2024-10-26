@@ -23,8 +23,6 @@ public class MainMenu : MonoBehaviour
 
    public async void StartRoom()
    {
-      await clientSocket.EmitAsync("rooms:create");
-
       SceneManager.LoadScene(selectedScene);
    }
 }

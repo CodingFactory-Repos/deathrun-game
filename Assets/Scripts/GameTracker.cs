@@ -19,6 +19,8 @@ public class GameTracker : MonoBehaviour
     public GameObject blacksmithPrefab;
     public GameObject altarPrefab;
 
+    public GameObject waitingRoomPrefab;
+
     // Points de spawn (ils seront trouvés dynamiquement)
     private Transform blacksmithSpawnPoint;
     private Transform altarSpawnPoint;
@@ -26,6 +28,8 @@ public class GameTracker : MonoBehaviour
     // Références vers les instances actuelles du forgeron et de l'autel
     private GameObject currentBlacksmith;
     private GameObject currentAltar;
+
+    private GameObject waitingRoom;
 
     void Start()
     {
@@ -44,8 +48,21 @@ public class GameTracker : MonoBehaviour
 
     public void NextStage()
     {
+        if (stageCounter == 0)
+        {
+            instantiateWaitingRoom();
+        }
         stageCounter++;
         stageText.text = "Stage: " + stageCounter;
+    }
+
+    private void instantiateWaitingRoom()
+    {
+        waitingRoom = GameObject.Find("WaitingRoom");
+        if (waitingRoom == null && waitingRoomPrefab != null)
+        {
+            Instantiate(waitingRoomPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        }
     }
 
 
