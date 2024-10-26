@@ -54,7 +54,6 @@ public class RenderCameraCapture : MonoBehaviour
     {
         if (socket != null && socket.Connected)
         {
-            Debug.Log("Sending frame " + frameIndex);
             byte[] imageBytes = texture.EncodeToJPG();
             string base64Image = System.Convert.ToBase64String(imageBytes);
             await socket.EmitAsync("camera:request", base64Image);
