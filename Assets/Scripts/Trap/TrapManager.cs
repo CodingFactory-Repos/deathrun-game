@@ -29,7 +29,7 @@ public class TrapManager : MonoBehaviour
         trapPrefabDictionary.Add("crossbow_up_prefab", trapPrefabs[1]);
         trapPrefabDictionary.Add("crossbow_side_left_prefab", trapPrefabs[2]);
         trapPrefabDictionary.Add("crossbow_side_right_prefab", trapPrefabs[3]);
-        trapPrefabDictionary.Add("bear_trap", trapPrefabs[4]);
+        trapPrefabDictionary.Add("bear_trap_prefab", trapPrefabs[4]);
 
         clientSocket = SocketManager.Instance.ClientSocket;
 
