@@ -2797,7 +2797,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trapPrefabs:
   - {fileID: 6097000079642511365, guid: 127c53d14a0062f41a16963a87a85dc5, type: 3}
-  - {fileID: 6762149095286452822, guid: d7c2a5ac1f23afe428f872343ed56d71, type: 3}
+  - {fileID: 4908425455759625111, guid: 55fe130831dbf8a4da6e32d9a6584167, type: 3}
   - {fileID: 7646078152559978388, guid: 96efbcbb8de02c04e8828f4c44b0af95, type: 3}
   - {fileID: 7646078152559978388, guid: 6bd44dba7be27674aae083b13ec033b3, type: 3}
   - {fileID: 9096874691272071173, guid: df9ca486b9215294b871fe77d6a52372, type: 3}
