@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8233138555884793280}
   - component: {fileID: 8114584494963098503}
   m_Layer: 0
-  m_Name: bear_trap
+  m_Name: bear_trap_prefab
   m_TagString: trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
