@@ -9,7 +9,7 @@ public class RenderCameraCapture : MonoBehaviour
     private RenderTexture renderTexture;
     private Texture2D texture;
     private float timeSinceLastCapture = 0f;
-    private float captureInterval = 0.1f;
+    private float captureInterval = 0f;
 
     static ulong frameIndex = 0;
     private SocketIO socket;
