@@ -1,5 +1,6 @@
 using UnityEngine;
-using System.IO;
+using System.Threading.Tasks;
+using SocketIOClient;
 
 public class RenderCameraCapture : MonoBehaviour
 {
@@ -10,22 +11,23 @@ public class RenderCameraCapture : MonoBehaviour
     private float timeSinceLastCapture = 0f;
     private float captureInterval = 0.1f; 
 
-    static ulong frameIndex= 0; 
+    static ulong frameIndex = 0; 
+    private SocketIO socket;
 
-    void Start()
+    async void Start()
     {
         int width = 1280;
         int height = 720;
 
         renderTexture = new RenderTexture(width, height, 24);
         renderCamera.targetTexture = renderTexture;
-
         texture = new Texture2D(width, height, TextureFormat.RGB24, false);
+        socket = GUillaumeMetLeSocketStp
+        await socket.ConnectAsync();
     }
 
     void Update()
     {
-     
         if (mainCamera != null && renderCamera != null)
         {
             renderCamera.transform.position = mainCamera.transform.position;
@@ -38,20 +40,32 @@ public class RenderCameraCapture : MonoBehaviour
         {
             timeSinceLastCapture = 0f;
 
-            frameIndex +=1;
+            frameIndex += 1;
             RenderTexture.active = renderTexture;
             renderCamera.Render();
             texture.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
             texture.Apply();
             RenderTexture.active = null; 
 
-            SaveFrameAsImage(frameIndex);
+            SendFrameToSocketIO();
         }
     }
 
-    void SaveFrameAsImage(ulong frameIndex)
+    async void SendFrameToSocketIO()
     {
-        byte[] imageBytes = texture.EncodeToPNG();
-        File.WriteAllBytes(Path.Combine(Application.dataPath, $"frame_{frameIndex}.png"), imageBytes);
+        if (socket != null && socket.Connected)
+        {
+            byte[] imageBytes = texture.EncodeToJPG(); 
+            string base64Image = System.Convert.ToBase64String(imageBytes);
+            await socket.EmitAsync("frame", base64Image);
+        }
+    }
+
+    async void OnDestroy()
+    {
+        if (socket != null)
+        {
+            await socket.DisconnectAsync();
+        }
     }
 }
