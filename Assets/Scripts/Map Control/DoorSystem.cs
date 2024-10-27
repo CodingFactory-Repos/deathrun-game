@@ -58,6 +58,20 @@ public class RoomManager : MonoBehaviour
             }
             if (newRoom.name.Contains("CorridorX7"))
             {
+                GameObject[] arrows = GameObject.FindGameObjectsWithTag("Enemy");
+
+                if (arrows.Length == 0)
+                {
+                    UnityEngine.Debug.Log("No arrows found");
+                }
+                else
+                {
+                    foreach (GameObject arrow in arrows)
+                    {
+                        Destroy(arrow);
+                    }
+                }
+
                 if (!isGameCreated)
                 {
                     isGameCreated = true;
