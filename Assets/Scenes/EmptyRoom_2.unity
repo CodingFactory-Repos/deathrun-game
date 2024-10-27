@@ -1049,6 +1049,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1902134491517458094, guid: 8dd3bf33b53003b4bb34a3806e3c3c48, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902134491517458094, guid: 8dd3bf33b53003b4bb34a3806e3c3c48, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902134491517458094, guid: 8dd3bf33b53003b4bb34a3806e3c3c48, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2827363336512511894, guid: 8dd3bf33b53003b4bb34a3806e3c3c48, type: 3}
+      propertyPath: m_Name
+      value: Lightning
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

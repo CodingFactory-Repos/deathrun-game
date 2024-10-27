@@ -35,6 +35,7 @@ public class WaitingTrapper : MonoBehaviour
 
     void Start()
     {
+       
         clientSocket = SocketManager.Instance.ClientSocket;
         CreateOverlay();
         RegisterSocketEvents();
