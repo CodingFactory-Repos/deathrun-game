@@ -12,6 +12,7 @@ TagManager:
   - Dialogue
   - Temporary
   - SpawnPoint
+  - Door
   layers:
   - Default
   - TransparentFX
