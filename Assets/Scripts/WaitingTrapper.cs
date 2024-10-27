@@ -26,11 +26,15 @@ public class WaitingTrapper : MonoBehaviour
     private bool gameStart = false;
     private bool messageSet = false;
 
-    public GameObject spawnOfPoint;
+    private GameObject spawnOfPoint;
+    private GameObject door;
+
+    // Set a public sprite for the door when it's locked and unlocked
+    public Sprite lockedDoor;
+    public Sprite unlockedDoor;
 
     void Start()
     {
-       
         clientSocket = SocketManager.Instance.ClientSocket;
         CreateOverlay();
         RegisterSocketEvents();
@@ -75,6 +79,7 @@ public class WaitingTrapper : MonoBehaviour
             Debug.LogError("Spawn point not found!");
             return;
         }
+        door.GetComponent<SpriteRenderer>().sprite = lockedDoor;
         spawnOfPoint.GetComponent<BoxCollider2D>().enabled = false;
     }
 
@@ -82,6 +87,34 @@ public class WaitingTrapper : MonoBehaviour
     private void unlockDoor()
     {
         spawnOfPoint.GetComponent<BoxCollider2D>().enabled = true;
+        StartCoroutine(FadeToUnlockedSprite());
+    }
+
+    private IEnumerator FadeToUnlockedSprite()
+    {
+        SpriteRenderer doorRenderer = door.GetComponent<SpriteRenderer>();
+        float fadeDuration = 0.4f;
+        float elapsedTime = 0;
+
+        Sprite initialSprite = doorRenderer.sprite;
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float alpha = Mathf.Lerp(1, 0, elapsedTime / fadeDuration);
+
+            doorRenderer.color = new Color(1, 1, 1, alpha);
+
+            if (alpha < 0.5f)
+            {
+                doorRenderer.sprite = unlockedDoor;
+                doorRenderer.color = new Color(1, 1, 1, 1 - alpha);
+            }
+
+            yield return null;
+        }
+
+        doorRenderer.sprite = unlockedDoor;
         Destroy(overlay.transform.parent.gameObject);
         Destroy(this);
     }
@@ -177,13 +210,15 @@ public class WaitingTrapper : MonoBehaviour
     void Update()
     {
         spawnOfPoint = GameObject.FindGameObjectWithTag("SpawnPoint");
+        door = GameObject.FindGameObjectWithTag("Door");
         if (gameStart)
         {
             gameStart = false;
             coroutineStarted = true;
             StartCoroutine(StartCountdown(5)); // Start countdown for traps
         }
-        if ( spawnOfPoint == GameObject.FindGameObjectWithTag("SpawnPoint") && !coroutineStarted){
+        if (spawnOfPoint == GameObject.FindGameObjectWithTag("SpawnPoint") && !coroutineStarted)
+        {
             lockDoor();
         }
         if (gamePaused && !coroutineStarted && !messageSet)
