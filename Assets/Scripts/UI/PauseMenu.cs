@@ -8,6 +8,13 @@ public class PauseMenu : MonoBehaviour
     public static bool gameIsPaused = false;
     public GameObject pauseMenuUI;
 
+    private SocketIOUnity clientSocket;
+
+    private void Start()
+    {
+        clientSocket = SocketManager.Instance.ClientSocket;
+    }
+
     void Update()
     {
 
@@ -38,6 +45,7 @@ public class PauseMenu : MonoBehaviour
         Resume();
         GameObject socket = GameObject.FindWithTag("Temporary");
         if (socket != null) Destroy(socket.gameObject);
+        clientSocket.EmitAsync("rooms:disconnect");
         SceneManager.LoadScene("Menu");
 
     }
