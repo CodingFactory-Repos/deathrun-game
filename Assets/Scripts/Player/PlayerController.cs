@@ -7,7 +7,6 @@ using System.Collections.Generic;
 
 public class PlayerMovement : MonoBehaviour
 {
-	private SocketIOUnity clientSocket;
 	private Vector2 movementInput;
 	public float moveSpeed = 5f;
 	public float dashSpeed = 8f;
@@ -29,35 +28,12 @@ public class PlayerMovement : MonoBehaviour
 	public Vector2 minCameraPosition;
 	public Vector2 maxCameraPosition;
 	private string socketUrl;
-
-	private void LoadEnvVariables()
-    {
-        string envFilePath = Path.Combine(Application.dataPath, ".env");
-
-        if (File.Exists(envFilePath))
-        {
-            foreach (var line in File.ReadAllLines(envFilePath))
-            {
-                if (!string.IsNullOrWhiteSpace(line) && !line.StartsWith("#"))
-                {
-                    var keyValue = line.Split('=');
-                    if (keyValue.Length == 2)
-                    {
-                        var key = keyValue[0].Trim();
-                        var value = keyValue[1].Trim();
-                        Environment.SetEnvironmentVariable(key, value);
-                    }
-                }
-            }
-        }
-        else
-        {
-            Debug.LogError(".env file not found at " + envFilePath);
-        }
-    }
+	private SocketIOUnity clientSocket;
 
 	async void Start()
 	{
+
+		clientSocket = SocketManager.Instance.ClientSocket;
 		player = GetComponent<Player>();
 		if (player == null)
 		{
@@ -79,37 +55,6 @@ public class PlayerMovement : MonoBehaviour
 		{
 			cameraHeight = 2f * mainCamera.orthographicSize;
 			cameraWidth = cameraHeight * mainCamera.aspect;
-		}
-
-		try
-		{
-			
-		  	var socketUrl = "https://api.godbless.loule.me/";
-            var uri = new Uri(socketUrl);
-			clientSocket = SocketManager.Instance.ClientSocket;
-			if (clientSocket == null)
-			{
-				Debug.LogError("SocketIO client is null! Check SocketManager initialization.");
-			}
-		}
-		catch (Exception e)
-		{
-			Debug.LogError("Socket connection error: " + e.Message);
-		}
-		try
-		{
-			 var socketUrl = "https://api.godbless.loule.me/";
-			var uri = new Uri(socketUrl);
-			clientSocket = SocketManager.Instance.ClientSocket;
-
-			if (clientSocket == null)
-			{
-				Debug.LogError("SocketIO client is null! Check SocketManager initialization.");
-			}
-		}
-		catch (Exception e)
-		{
-			Debug.LogError("Socket connection error: " + e.Message);
 		}
 	}
 
