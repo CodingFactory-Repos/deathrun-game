@@ -19,6 +19,8 @@ public class TrapManager : MonoBehaviour
 
     private string socketUrl;
 
+    private bool trapsLoaded = false;
+
     async void Start()
     {
         // Initialize the grid
@@ -35,8 +37,6 @@ public class TrapManager : MonoBehaviour
         clientSocket = SocketManager.Instance.ClientSocket;
 
         StartCoroutine(ProcessPlacementQueue());
-
-        await clientSocket.EmitAsync("traps:reload");
     }
 
 
@@ -49,14 +49,55 @@ public class TrapManager : MonoBehaviour
             foreach (var trapData in trapDataArray)
             {
                 JObject trap = (JObject)trapData["trap"];
+                JArray traps = (JArray)trapData["traps"];
 
-                int x = trap["x"].Value<int>();
-                int y = trap["y"].Value<int>();
-                string trapType = trap["trapType"].Value<string>();
-
-                EnqueuePlacementOrder(x, y, trapType);
+                if (traps != null && traps.Count > 0)
+                {
+                    PlaceMultipleTraps(traps);
+                    trapsLoaded = true;
+                }
+                else if (trap != null)
+                {
+                    PlaceSingleTrap(trap);
+                }
+                else
+                {
+                    // Handle cases where both traps and trap are null or empty
+                    if (traps == null || traps.Count == 0)
+                    {
+                        trapsLoaded = true;
+                    }
+                    else
+                    {
+                        Debug.LogWarning("No traps to place.");
+                    }
+                }
             }
+
         });
+
+        if (trapsLoaded == false)
+        {
+            Debug.Log("Trying to reload...");
+            clientSocket.Emit("traps:reload");
+        }
+    }
+
+    private void PlaceMultipleTraps(JArray traps)
+    {
+        foreach (var trapItem in traps)
+        {
+            PlaceSingleTrap((JObject)trapItem);
+        }
+    }
+
+    private void PlaceSingleTrap(JObject trap)
+    {
+        int x = trap.Value<int>("x");
+        int y = trap.Value<int>("y");
+        string trapType = trap.Value<string>("trapType");
+
+        EnqueuePlacementOrder(x, y, trapType);
     }
 
     private void EnqueuePlacementOrder(int x, int y, string trapType)
