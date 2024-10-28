@@ -42,6 +42,7 @@ public class EmitRPS : InteractableObject
     {
         if (collision.CompareTag("Player"))
         {
+            Debug.Log("KIKOUJESUISTRIGGEREERER");
             interactionCanvas.SetActive(true); 
             isPlayerNearby = true;
         }
@@ -51,6 +52,7 @@ public class EmitRPS : InteractableObject
     {
         if (collision.CompareTag("Player"))
         {
+             Debug.Log("PATRIGER");
             interactionCanvas.SetActive(false);  
             isPlayerNearby = false;
            

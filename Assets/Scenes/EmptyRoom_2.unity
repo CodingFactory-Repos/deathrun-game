@@ -170,7 +170,7 @@ MonoBehaviour:
   stageText: {fileID: 1219144881}
   blacksmithPrefab: {fileID: 181369798890271941, guid: e4326c266f4d3fc4482daabdf57ea4f3, type: 3}
   altarPrefab: {fileID: 4671168421616932687, guid: 52d0b7df8b3db394988157e997abbc1f, type: 3}
-  RPSPrefab: {fileID: 1508629469759733934, guid: 57cadef557163984ab89359d6a5c54af, type: 3}
+  RPSPrefab: {fileID: 7695364436160385472, guid: f99b05630f4b18341bc326c6b950561f, type: 3}
   waitingRoomPrefab: {fileID: 6577988205983815687, guid: 56b8e144977b94114b4eb95ac32bfe84, type: 3}
 --- !u!1001 &1122242796
 PrefabInstance:
