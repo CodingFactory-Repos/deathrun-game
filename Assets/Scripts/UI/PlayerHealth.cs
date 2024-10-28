@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int maxHealth = 5;  // Points de vie maximum
+    public static int maxHealth = 5;  // Points de vie maximum
     private int currentHealth;
 
     public GameObject heartPrefab;
