@@ -30,7 +30,7 @@ public class Altar : InteractableObject
     {
         healthManager = FindObjectOfType<PlayerHealth>();
         healthManager.Heal(1);
-        Destroy(gameObject);
+        Destroy(transform.parent.gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

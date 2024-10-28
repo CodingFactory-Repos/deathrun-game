@@ -48,7 +48,9 @@ public class PlayerHealth : MonoBehaviour
         currentHealth += amount;
         if (currentHealth > maxHealth)
         {
+            if (maxHealth == 7){
             currentHealth = maxHealth;
+            } else  maxHealth +=1;
         }
         UpdateHealthBar();
     }
