@@ -83,8 +83,8 @@ public class PlayerMovement : MonoBehaviour
 
 		try
 		{
-			LoadEnvVariables();
-			var socketUrl = Environment.GetEnvironmentVariable("SOCKET_URL");
+			
+		  	var socketUrl = "https://api.godbless.loule.me/";
             var uri = new Uri(socketUrl);
 			clientSocket = SocketManager.Instance.ClientSocket;
 			if (clientSocket == null)
@@ -98,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
 		}
 		try
 		{
-			env.TryParseEnvironmentVariable("SOCKET_URL", out string socketUrl);
+			 var socketUrl = "https://api.godbless.loule.me/";
 			var uri = new Uri(socketUrl);
 			clientSocket = SocketManager.Instance.ClientSocket;
 
