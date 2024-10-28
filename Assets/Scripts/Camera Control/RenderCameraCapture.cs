@@ -9,7 +9,7 @@ public class RenderCameraCapture : MonoBehaviour
     private RenderTexture renderTexture;
     private Texture2D texture;
     private float timeSinceLastCapture = 0f;
-    private float captureInterval = 0.0166f;
+    private float captureInterval =  0.0416f;
 
     static ulong frameIndex = 0;
     private SocketIO socket;
@@ -54,7 +54,7 @@ public class RenderCameraCapture : MonoBehaviour
     {
         if (socket != null && socket.Connected)
         {
-            byte[] imageBytes = texture.EncodeToJPG();
+            byte[] imageBytes = texture.EncodeToJPG(25);
             string base64Image = System.Convert.ToBase64String(imageBytes);
             await socket.EmitAsync("camera:request", base64Image);
         }

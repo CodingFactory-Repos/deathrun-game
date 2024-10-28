@@ -13,6 +13,12 @@ public class EmitRPS : InteractableObject
     // Start is called before the first frame update
     void Start()
     {
+        GameObject parent = GameObject.Find("RockPaperCissorGame");
+        if (parent != null)
+        {
+            // Recherche l'enfant RockPaperCissor à partir du parent
+            RPSCanvas = parent.transform.Find("RockPaperCissor")?.gameObject;
+        }
         clientSocket = SocketManager.Instance.ClientSocket;
         interactionCanvas.SetActive(false);
     }
@@ -28,7 +34,6 @@ public class EmitRPS : InteractableObject
 
       public override void Interact(Player player)
     {
-        Debug.Log("TAMEREss");
         RPSCanvas.SetActive(true);
         clientSocket.Emit("rps:start");
     }
