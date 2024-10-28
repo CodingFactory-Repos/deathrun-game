@@ -622,6 +622,34 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 545858512894021296, guid: 35bed5d2a54129845bcff6b3abaa746b, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[2].m_Data
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 545858512894021296, guid: 35bed5d2a54129845bcff6b3abaa746b, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[3].m_Data
+      value: 
+      objectReference: {fileID: 1129282767, guid: 6b70aeaa417e82a4f9cc02ceaf140158, type: 3}
+    - target: {fileID: 545858512894021296, guid: 35bed5d2a54129845bcff6b3abaa746b, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[13].m_Data
+      value: 
+      objectReference: {fileID: 916167026, guid: 6b70aeaa417e82a4f9cc02ceaf140158, type: 3}
+    - target: {fileID: 545858512894021296, guid: 35bed5d2a54129845bcff6b3abaa746b, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[2].m_RefCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 545858512894021296, guid: 35bed5d2a54129845bcff6b3abaa746b, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[13].m_RefCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 545858512894021296, guid: 35bed5d2a54129845bcff6b3abaa746b, type: 3}
+      propertyPath: m_Tiles.Array.data[8].second.m_TileSpriteIndex
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 545858512894021296, guid: 35bed5d2a54129845bcff6b3abaa746b, type: 3}
+      propertyPath: m_Tiles.Array.data[9].second.m_TileSpriteIndex
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 979532337193533816, guid: 35bed5d2a54129845bcff6b3abaa746b, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -703,9 +731,17 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8096972002182311090, guid: 35bed5d2a54129845bcff6b3abaa746b, type: 3}
+      propertyPath: trapPrefabs.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096972002182311090, guid: 35bed5d2a54129845bcff6b3abaa746b, type: 3}
       propertyPath: trapPrefabs.Array.data[1]
       value: 
       objectReference: {fileID: 411694592779797494, guid: d7c2a5ac1f23afe428f872343ed56d71, type: 3}
+    - target: {fileID: 8096972002182311090, guid: 35bed5d2a54129845bcff6b3abaa746b, type: 3}
+      propertyPath: trapPrefabs.Array.data[5]
+      value: 
+      objectReference: {fileID: 462902943475074006, guid: 854cb3c942bbf354cb1d900eaadba24a, type: 3}
     - target: {fileID: 8327367539400217474, guid: 35bed5d2a54129845bcff6b3abaa746b, type: 3}
       propertyPath: m_Layer
       value: 6
