@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro; // Importer TextMeshPro
+using TMPro;
 using SocketIOClient;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,7 +19,9 @@ public class RockPaperScissors : MonoBehaviour
     private SocketIOUnity clientSocket;
     public GameObject canvas;
 
-    public TextMeshProUGUI resultsText; // Utiliser TextMeshProUGUI
+    private string TexteGodResponse;
+
+    public TextMeshProUGUI resultsText;
 
     private Choice savedChoice = Choice.None;
 
@@ -30,6 +32,9 @@ public class RockPaperScissors : MonoBehaviour
         rockButton.onClick.AddListener(() => OnPlayerChoice(Choice.Rock));
         paperButton.onClick.AddListener(() => OnPlayerChoice(Choice.Paper));
         scissorsButton.onClick.AddListener(() => OnPlayerChoice(Choice.Scissors));
+
+        // Assurer que le texte est initialement vide
+        resultsText.text = "";
     }
 
     void Update()
@@ -46,11 +51,11 @@ public class RockPaperScissors : MonoBehaviour
                 Debug.Log("Result type: " + result.GetType());
                 Debug.Log("Result type: " + result["result"]);
 
-                resultsText.text = result["result"].ToString();
+                TexteGodResponse = result["result"].ToString();
             }
 
-            Debug.Log("jsonResponse: " + jsonResponse);
-            // resultsText.text = jsonResponse["result"].ToString();
+            resultsText.text = TexteGodResponse;
+            StartCoroutine(HideTextAfterDelay(5)); // Cache le texte après 5 secondes
         });
 
         clientSocket.On("rps:lose", response =>
@@ -105,5 +110,12 @@ public class RockPaperScissors : MonoBehaviour
     public Choice GetSavedChoice()
     {
         return savedChoice;
+    }
+
+
+    IEnumerator HideTextAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        resultsText.text = ""; 
     }
 }
