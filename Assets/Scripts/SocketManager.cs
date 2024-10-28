@@ -56,11 +56,11 @@ public class SocketManager : MonoBehaviour
     private async Task SetupSocket()
     {
 
-        LoadEnvVariables(); 
+        // LoadEnvVariables(); 
 
         try
         {
-            var socketUrl = Environment.GetEnvironmentVariable("SOCKET_URL");
+            var socketUrl = "https://api.godbless.loule.me/";
             var uri = new Uri(socketUrl);
             ClientSocket = new SocketIOUnity(uri);
 
@@ -75,7 +75,7 @@ public class SocketManager : MonoBehaviour
 
         try
         {
-            env.TryParseEnvironmentVariable("SOCKET_URL", out string socketUrl);
+            var socketUrl = "https://api.godbless.loule.me/";
             var uri = new Uri(socketUrl);
             ClientSocket = new SocketIOUnity(uri);
 
