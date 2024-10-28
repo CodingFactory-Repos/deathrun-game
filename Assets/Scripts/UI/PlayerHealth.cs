@@ -9,18 +9,18 @@ public class PlayerHealth : MonoBehaviour
     public int maxHealth = 5;  // Points de vie maximum
     private int currentHealth;
 
-    public GameObject heartPrefab;  
-    public Transform healthBar;  
+    public GameObject heartPrefab;
+    public Transform healthBar;
     private List<GameObject> hearts = new List<GameObject>();
 
-    
+
     private SocketIOUnity clientSocket;
 
     public GameObject deadCanvas;
 
     void Start()
     {
-        
+
         currentHealth = maxHealth;
         UpdateHealthBar();
 
@@ -53,32 +53,32 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthBar();
     }
 
-     async void SocketEmitter()
+    async void SocketEmitter()
     {
-        await clientSocket.EmitAsync("rooms:end");
+        await clientSocket.EmitAsync("rooms:death");
     }
 
     void Die()
     {
-      
+
         if (deadCanvas != null && !deadCanvas.activeSelf)
         {
             SocketEmitter();
             deadCanvas.SetActive(true);
         }
         GetComponent<PlayerMovement>().enabled = false;
-    }       
+    }
 
     void UpdateHealthBar()
     {
-       
+
         foreach (GameObject heart in hearts)
         {
             Destroy(heart);
         }
         hearts.Clear();
 
-      
+
         for (int i = 0; i < currentHealth; i++)
         {
             GameObject newHeart = Instantiate(heartPrefab, healthBar);
@@ -94,7 +94,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-      public void ReturnToMenu()
+    public void ReturnToMenu()
     {
         GameObject socket = GameObject.FindWithTag("Temporary");
         if (socket != null) Destroy(socket.gameObject);
