@@ -9,6 +9,8 @@ public class Altar : InteractableObject
     private bool isPlayerNearby = false;
     public GameObject interactionCanvas;
 
+    private PlayerHealth healthManager;
+
     void Start()
     {
    
@@ -26,19 +28,9 @@ public class Altar : InteractableObject
 
     public override void Interact(Player player)
     {
-        if (availableItems.Count > 0)
-        {
-       
-            string item = availableItems[0];
-            player.AddItemToInventory(item);  // Ajouter l'objet à l'inventaire du joueur
-            playerReceivedItems.Add(item);    // Ajouter à la liste des objets reçus
-            availableItems.RemoveAt(0);       // Retirer l'objet de la liste des objets disponibles
-            Debug.Log("L'autel vous a donné : " + item);
-        }
-        else
-        {
-            Debug.Log("L'autel n'a plus rien à vous offrir.");
-        }
+        healthManager = FindObjectOfType<PlayerHealth>();
+        healthManager.Heal(1);
+        Destroy(transform.parent.gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
