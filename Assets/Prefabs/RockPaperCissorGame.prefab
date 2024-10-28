@@ -802,7 +802,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: CISSOR
+  m_text: SCISSORS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4b5fe7c2e4bb84551bcc3db2416b48af, type: 2}
   m_sharedMaterial: {fileID: -1397903820206187217, guid: 4b5fe7c2e4bb84551bcc3db2416b48af, type: 2}
@@ -1247,5 +1247,5 @@ MonoBehaviour:
   rockButton: {fileID: 8465811365922358873}
   paperButton: {fileID: 8144605884610747780}
   scissorsButton: {fileID: 4661900220339400221}
-  canvas: {fileID: 0}
-  resultsText: {fileID: 0}
+  canvas: {fileID: 1151693853599494121}
+  resultsText: {fileID: 5551857545691184436}

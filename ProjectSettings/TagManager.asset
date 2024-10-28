@@ -13,6 +13,7 @@ TagManager:
   - Temporary
   - SpawnPoint
   - Door
+  - RPSTag
   layers:
   - Default
   - TransparentFX
