@@ -52,6 +52,11 @@ public class RockPaperScissors : MonoBehaviour
             Debug.Log("jsonResponse: " + jsonResponse);
             // resultsText.text = jsonResponse["result"].ToString();
         });
+
+        clientSocket.On("rps:lose", response =>
+        {
+            Debug.Log("You lost!");
+        });
     }
 
     void OnPlayerChoice(Choice choice)
