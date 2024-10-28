@@ -227,22 +227,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: RockPaperCissorGame
       objectReference: {fileID: 0}
-    - target: {fileID: 7792937700425213044, guid: a29b258ccf5dc90498df6e925ee2a3e5, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8054260996891625916, guid: a29b258ccf5dc90498df6e925ee2a3e5, type: 3}
-      propertyPath: canvas
-      value: 
-      objectReference: {fileID: 1122242797}
-    - target: {fileID: 8054260996891625916, guid: a29b258ccf5dc90498df6e925ee2a3e5, type: 3}
-      propertyPath: resultsText
-      value: 
-      objectReference: {fileID: 1122242798}
-    - target: {fileID: 8054260996891625916, guid: a29b258ccf5dc90498df6e925ee2a3e5, type: 3}
-      propertyPath: resultsCanvas
-      value: 
-      objectReference: {fileID: 2133814281}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -253,17 +237,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1151693853599494121, guid: a29b258ccf5dc90498df6e925ee2a3e5, type: 3}
   m_PrefabInstance: {fileID: 1122242796}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1122242798 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5551857545691184436, guid: a29b258ccf5dc90498df6e925ee2a3e5, type: 3}
-  m_PrefabInstance: {fileID: 1122242796}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1219144881 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5281155380993205454, guid: b95a2840877394746b9c857ec618031d, type: 3}
@@ -751,6 +724,71 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35bed5d2a54129845bcff6b3abaa746b, type: 3}
+--- !u!1001 &1996324785
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1508629469759733934, guid: 57cadef557163984ab89359d6a5c54af, type: 3}
+      propertyPath: m_Name
+      value: RockPaperCissor_prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 4170502206729879107, guid: 57cadef557163984ab89359d6a5c54af, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+    - target: {fileID: 4844190162371704201, guid: 57cadef557163984ab89359d6a5c54af, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844190162371704201, guid: 57cadef557163984ab89359d6a5c54af, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.4106054
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844190162371704201, guid: 57cadef557163984ab89359d6a5c54af, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.04124558
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844190162371704201, guid: 57cadef557163984ab89359d6a5c54af, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844190162371704201, guid: 57cadef557163984ab89359d6a5c54af, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844190162371704201, guid: 57cadef557163984ab89359d6a5c54af, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844190162371704201, guid: 57cadef557163984ab89359d6a5c54af, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844190162371704201, guid: 57cadef557163984ab89359d6a5c54af, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844190162371704201, guid: 57cadef557163984ab89359d6a5c54af, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844190162371704201, guid: 57cadef557163984ab89359d6a5c54af, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5699639488801851422, guid: 57cadef557163984ab89359d6a5c54af, type: 3}
+      propertyPath: RPSCanvas
+      value: 
+      objectReference: {fileID: 1122242797}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 57cadef557163984ab89359d6a5c54af, type: 3}
 --- !u!1 &2035874648 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1463738777561398421, guid: 2359570f2fea24215ae3f989d41b590e, type: 3}
@@ -828,11 +866,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 983807671}
   m_SourcePrefab: {fileID: 100100000, guid: 9e9537c65eb0dd649899a676ec5b08c5, type: 3}
---- !u!1 &2133814281 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7338181117485925036, guid: a29b258ccf5dc90498df6e925ee2a3e5, type: 3}
-  m_PrefabInstance: {fileID: 1122242796}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3639548686512757813
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1178,3 +1211,4 @@ SceneRoots:
   - {fileID: 1122242796}
   - {fileID: 5614575254252139880}
   - {fileID: 8578007543275711687}
+  - {fileID: 1996324785}
