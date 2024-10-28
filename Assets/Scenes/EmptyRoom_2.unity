@@ -738,7 +738,7 @@ PrefabInstance:
     - target: {fileID: 8096972002182311090, guid: 35bed5d2a54129845bcff6b3abaa746b, type: 3}
       propertyPath: trapPrefabs.Array.data[1]
       value: 
-      objectReference: {fileID: 411694592779797494, guid: d7c2a5ac1f23afe428f872343ed56d71, type: 3}
+      objectReference: {fileID: 7646078152559978388, guid: c6dcdedf0f383334aae033d8b4b41f03, type: 3}
     - target: {fileID: 8096972002182311090, guid: 35bed5d2a54129845bcff6b3abaa746b, type: 3}
       propertyPath: trapPrefabs.Array.data[5]
       value: 
