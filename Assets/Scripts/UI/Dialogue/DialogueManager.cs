@@ -103,7 +103,6 @@ namespace DialogueSystem
                 if (messageQueue.Count > 0 && !isDisplayingMessage)
                 {
                     GodMessage nextMessage = messageQueue.Dequeue();
-                    Debug.Log("NTR");
                     DisplayDialogue(nextMessage.godSprite, nextMessage.dialogue, nextMessage.title);
                     isDisplayingMessage = true;
 

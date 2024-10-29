@@ -18,6 +18,7 @@ public class GameTracker : MonoBehaviour
     // Prefabs des événements (forgeron et autel)
     public GameObject blacksmithPrefab;
     public GameObject altarPrefab;
+    public GameObject RPSPrefab;
 
     public GameObject waitingRoomPrefab;
 
@@ -25,9 +26,12 @@ public class GameTracker : MonoBehaviour
     private Transform blacksmithSpawnPoint;
     private Transform altarSpawnPoint;
 
+    private Transform RPSSpawnPoint;
+
     // Références vers les instances actuelles du forgeron et de l'autel
     private GameObject currentBlacksmith;
     private GameObject currentAltar;
+    private GameObject currentRPS;
 
     private GameObject waitingRoom;
 
@@ -70,27 +74,33 @@ public class GameTracker : MonoBehaviour
     {
         altarSpawnPoint = GameObject.Find("AltarSpawnPoint")?.transform;
         blacksmithSpawnPoint = GameObject.Find("BlacksmithSpawnPoint")?.transform;
+        RPSSpawnPoint =  GameObject.Find("RPSSpawnPoint")?.transform;
+        
 
-        if (blacksmithSpawnPoint == null || altarSpawnPoint == null)
+        if (blacksmithSpawnPoint == null || altarSpawnPoint == null || RPSSpawnPoint == null)
         {
-
             return;
         }
 
 
-
         // Apparition du forgeron au stage 5
-        if (stageCounter >= 5 && blacksmithPrefab != null)
+        if (stageCounter >= 2 && blacksmithPrefab != null)
         {
             currentBlacksmith = Instantiate(blacksmithPrefab, blacksmithSpawnPoint.position, Quaternion.identity);
-            UnityEngine.Debug.Log("Forgeron spawné au stage 5.");
+            
+        
+        }
+
+        if (stageCounter >= 8 && RPSPrefab != null)
+        {
+            currentRPS = Instantiate(RPSPrefab, RPSSpawnPoint.position, Quaternion.identity);
+            
         }
 
         // Apparition de l'autel au stage 10, et réinitialisation de ses objets
-        if (stageCounter >= 10 && altarPrefab != null)
+        if (stageCounter >= 15 && altarPrefab != null)
         {
             currentAltar = Instantiate(altarPrefab, altarSpawnPoint.position, Quaternion.identity);
-            UnityEngine.Debug.Log("Autel spawné au stage 10.");
             Altar altarScript = currentAltar.GetComponent<Altar>();
             if (altarScript != null)
             {
@@ -111,6 +121,12 @@ public class GameTracker : MonoBehaviour
         {
             Destroy(currentAltar);
             currentAltar = null;
+        }
+
+          if (currentRPS != null)
+        {
+            Destroy(currentRPS);
+            currentRPS = null;
         }
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro; // Importer TextMeshPro
+using TMPro;
 using SocketIOClient;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ public class RockPaperScissors : MonoBehaviour
     public enum Choice { Rock, Paper, Scissors, None }
 
     public Choice playerChoice = Choice.None;
-
+    private PlayerHealth healthManager;
     public Button rockButton;
     public Button paperButton;
     public Button scissorsButton;
@@ -19,9 +19,13 @@ public class RockPaperScissors : MonoBehaviour
     private SocketIOUnity clientSocket;
     public GameObject canvas;
 
-    public TextMeshProUGUI resultsText; // Utiliser TextMeshProUGUI
+    private string TexteGodResponse;
+
+    public TextMeshProUGUI resultsText;
 
     private Choice savedChoice = Choice.None;
+
+    bool? isLoose = null;
 
     void Start()
     {
@@ -30,10 +34,12 @@ public class RockPaperScissors : MonoBehaviour
         rockButton.onClick.AddListener(() => OnPlayerChoice(Choice.Rock));
         paperButton.onClick.AddListener(() => OnPlayerChoice(Choice.Paper));
         scissorsButton.onClick.AddListener(() => OnPlayerChoice(Choice.Scissors));
+        resultsText.text = "";
     }
 
     void Update()
     {
+        Reward(isLoose);
         clientSocket.On("rps:results", response =>
         {
             Debug.Log("Results received!");
@@ -42,17 +48,39 @@ public class RockPaperScissors : MonoBehaviour
 
             foreach (var result in jsonResponse)
             {
-                Debug.Log("Result: " + result);
-                Debug.Log("Result type: " + result.GetType());
                 Debug.Log("Result type: " + result["result"]);
 
-                resultsText.text = result["result"].ToString();
-            }
+                TexteGodResponse = result["result"].ToString();
 
-            Debug.Log("jsonResponse: " + jsonResponse);
-            // resultsText.text = jsonResponse["result"].ToString();
+                if (TexteGodResponse.Contains("Player")){
+                    isLoose = false;
+                }
+            }
+            resultsText.text = TexteGodResponse;
+            StartCoroutine(HideTextAfterDelay(5));
+        });
+
+        clientSocket.On("rps:lose", response =>
+        {
+            Debug.Log("You lost!");
+            isLoose = true;
         });
     }
+
+    void Reward(bool? condition)
+    {
+        if (condition == true)
+        {
+            healthManager = FindObjectOfType<PlayerHealth>();
+            healthManager.TakeDamage(1);
+        }
+        else if (condition == false)
+        {
+            healthManager = FindObjectOfType<PlayerHealth>();
+            healthManager.Heal(1);
+        }
+        isLoose = null;
+    }   
 
     void OnPlayerChoice(Choice choice)
     {
@@ -100,5 +128,12 @@ public class RockPaperScissors : MonoBehaviour
     public Choice GetSavedChoice()
     {
         return savedChoice;
+    }
+
+
+    IEnumerator HideTextAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        resultsText.text = ""; 
     }
 }

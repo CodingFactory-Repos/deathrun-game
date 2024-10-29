@@ -35,7 +35,7 @@ public class WaitingTrapper : MonoBehaviour
 
     void Start()
     {
-       
+
         clientSocket = SocketManager.Instance.ClientSocket;
         CreateOverlay();
         RegisterSocketEvents();
@@ -58,7 +58,7 @@ public class WaitingTrapper : MonoBehaviour
     {
         Debug.Log("Trapper joined the room!");
         trapperJoined = true;
-        messageSet = false; // Reset flag to update the message
+        messageSet = false;
     }
 
     private void OnRoomCreate(SocketIOResponse response)
@@ -87,6 +87,11 @@ public class WaitingTrapper : MonoBehaviour
 
     private void unlockDoor()
     {
+        if (overlay != null)
+        {
+            Destroy(overlay.transform.parent.gameObject);
+        }
+
         spawnOfPoint.GetComponent<BoxCollider2D>().enabled = true;
         StartCoroutine(FadeToUnlockedSprite());
     }
