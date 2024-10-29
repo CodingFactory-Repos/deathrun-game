@@ -56,6 +56,21 @@ public class PlayerMovement : MonoBehaviour
 			cameraHeight = 2f * mainCamera.orthographicSize;
 			cameraWidth = cameraHeight * mainCamera.aspect;
 		}
+		try
+		{
+			
+		  	var socketUrl = "https://api.godbless.loule.me/";
+         var uri = new Uri(socketUrl);
+        clientSocket = SocketManager.Instance.ClientSocket;
+        if (clientSocket == null)
+        {
+          Debug.LogError("SocketIO client is null! Check SocketManager initialization.");
+        }
+		}
+		catch (Exception e)
+		{
+			Debug.LogError("Socket connection error: " + e.Message);
+		}
 	}
 
 	void Update()
