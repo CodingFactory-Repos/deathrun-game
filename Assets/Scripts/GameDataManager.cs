@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Reflection;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameDataManager : MonoBehaviour
 {
@@ -27,16 +25,24 @@ public class GameDataManager : MonoBehaviour
         {
             interactable.SaveState(gameData);
         }
-        //TODO Ecrire ici toute la data en JSON pour retrieve
+      
+        Debug.Log("Game saved.");
     }
-
 
     public void LoadGame()
     {
+        StartCoroutine(LoadGameAfterInitialization());
+    }
+
+    private IEnumerator LoadGameAfterInitialization()
+    {
+        yield return null;
+
         foreach (InteractableObject interactable in FindObjectsOfType<InteractableObject>())
         {
             interactable.RestoreState(gameData);
         }
-         //TODO Lire ici toute la data en JSON pour retrieve
+
+        Debug.Log("Game loaded.");
     }
 }

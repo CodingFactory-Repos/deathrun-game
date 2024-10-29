@@ -84,23 +84,23 @@ public class GameTracker : MonoBehaviour
 
 
         // Apparition du forgeron au stage 5
-        if (stageCounter >= 5 && blacksmithPrefab != null)
+        if (stageCounter >= 2 && blacksmithPrefab != null)
         {
             currentBlacksmith = Instantiate(blacksmithPrefab, blacksmithSpawnPoint.position, Quaternion.identity);
-            UnityEngine.Debug.Log("Forgeron spawné au stage 5.");
+            
+        
         }
 
-        if (stageCounter >= 3 && RPSPrefab != null)
+        if (stageCounter >= 8 && RPSPrefab != null)
         {
             currentRPS = Instantiate(RPSPrefab, RPSSpawnPoint.position, Quaternion.identity);
-            UnityEngine.Debug.Log("COUCOU PAPA");
+            
         }
 
         // Apparition de l'autel au stage 10, et réinitialisation de ses objets
         if (stageCounter >= 15 && altarPrefab != null)
         {
             currentAltar = Instantiate(altarPrefab, altarSpawnPoint.position, Quaternion.identity);
-            UnityEngine.Debug.Log("Autel spawné au stage 10.");
             Altar altarScript = currentAltar.GetComponent<Altar>();
             if (altarScript != null)
             {

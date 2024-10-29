@@ -1,7 +1,6 @@
 using UnityEngine;
 using SocketIOClient;
 
-
 public class RoomManager : MonoBehaviour
 {
     public GameObject newRoomPrefab;
@@ -30,6 +29,10 @@ public class RoomManager : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            if (GameDataManager.instance != null)
+            {
+                GameDataManager.instance.SaveGame();
+            }
 
             if (isInCorridorX7)
             {
@@ -39,15 +42,21 @@ public class RoomManager : MonoBehaviour
 
             currentRoom = GameObject.FindGameObjectWithTag("Map");
             DeleteCurrentRoom();
+
             Vector3 newRoomPosition = new Vector3(4.1f, 2.8f, 0.0f);
             GameObject newRoom = Instantiate(newRoomPrefab, newRoomPosition, Quaternion.identity);
             PlacePlayerInNewRoom(newRoom);
             currentRoom = newRoom;
 
+            if (GameDataManager.instance != null)
+            {
+                GameDataManager.instance.LoadGame();
+            }
+
             GameObject[] traps = GameObject.FindGameObjectsWithTag("trap");
             if (traps == null)
             {
-                UnityEngine.Debug.Log("No traps found");
+                Debug.Log("No traps found");
             }
             else
             {
@@ -56,13 +65,14 @@ public class RoomManager : MonoBehaviour
                     Destroy(trap);
                 }
             }
+
             if (newRoom.name.Contains("CorridorX7"))
             {
                 GameObject[] arrows = GameObject.FindGameObjectsWithTag("Enemy");
 
                 if (arrows.Length == 0)
                 {
-                    UnityEngine.Debug.Log("No arrows found");
+                    Debug.Log("No arrows found");
                 }
                 else
                 {
@@ -83,7 +93,6 @@ public class RoomManager : MonoBehaviour
                 isInCorridorX7 = true;
                 SocketEmitter();
             }
-
         }
     }
 
