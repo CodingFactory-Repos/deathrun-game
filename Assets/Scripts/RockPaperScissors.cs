@@ -52,7 +52,7 @@ public class RockPaperScissors : MonoBehaviour
 
                 TexteGodResponse = result["result"].ToString();
 
-                if (!TexteGodResponse.Contains("player")){
+                if (TexteGodResponse.Contains("player")){
                     isLoose = false;
                 }
             }
